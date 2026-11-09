@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- item photos are user uploads of unknown size */
 "use client";
 
-import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 import { cycleIndex } from "@/lib/ui/carousel";
@@ -24,6 +24,8 @@ type DressUpSlotProps = {
   onLockedChange?: (locked: boolean) => void;
   /** Optional slots with nothing chosen show a dashed "+ add" row that calls this. */
   onAdd?: () => void;
+  /** Makes the main item a button, e.g. to open a picker sheet. */
+  onOpen?: () => void;
   className?: string;
 };
 
@@ -39,11 +41,14 @@ export function DressUpSlot({
   locked: controlledLocked,
   onLockedChange,
   onAdd,
+  onOpen,
   className,
 }: DressUpSlotProps) {
   const [ownIndex, setOwnIndex] = useState(defaultIndex);
   const [ownLocked, setOwnLocked] = useState(false);
   const swipeStartX = useRef<number | null>(null);
+  // A swipe that ends on the main item must not also count as a tap on it.
+  const justSwiped = useRef(false);
 
   const count = items.length;
   const index = Math.min(controlledIndex ?? ownIndex, Math.max(count - 1, 0));
@@ -77,13 +82,15 @@ export function DressUpSlot({
 
   function onPointerDown(event: PointerEvent) {
     swipeStartX.current = event.clientX;
+    justSwiped.current = false;
   }
 
   function onPointerUp(event: PointerEvent) {
     if (swipeStartX.current === null) return;
     const dx = event.clientX - swipeStartX.current;
     swipeStartX.current = null;
-    if (Math.abs(dx) >= SWIPE_THRESHOLD_PX) go(dx < 0 ? 1 : -1);
+    justSwiped.current = Math.abs(dx) >= SWIPE_THRESHOLD_PX;
+    if (justSwiped.current) go(dx < 0 ? 1 : -1);
   }
 
   if (optional && count === 0 && onAdd) {
@@ -137,7 +144,16 @@ export function DressUpSlot({
           <Icon name="left" />
         </button>
         <span className="fc-slot__peek">{prev?.src ? <img src={prev.src} alt="" /> : null}</span>
-        <span className="fc-slot__main">
+        <MainItem
+          onOpen={
+            onOpen &&
+            (() => {
+              if (justSwiped.current) justSwiped.current = false;
+              else onOpen();
+            })
+          }
+          label={`Choose ${label.toLowerCase()}`}
+        >
           {current ? (
             current.src ? (
               <img key={current.id} src={current.src} alt="" />
@@ -147,7 +163,7 @@ export function DressUpSlot({
           ) : (
             <span className="fc-slot__empty">{optional ? "Tap + to add" : "Nothing fits yet"}</span>
           )}
-        </span>
+        </MainItem>
         <span className="fc-slot__peek">{next?.src ? <img src={next.src} alt="" /> : null}</span>
         <button type="button" className="fc-slot__nav" aria-label={`Next ${label}`} onClick={() => go(1)} disabled={!canMove}>
           <Icon name="right" />
@@ -159,5 +175,14 @@ export function DressUpSlot({
         {announcement}
       </p>
     </section>
+  );
+}
+
+function MainItem({ onOpen, label, children }: { onOpen?: () => void; label: string; children: ReactNode }) {
+  if (!onOpen) return <span className="fc-slot__main">{children}</span>;
+  return (
+    <button type="button" className="fc-slot__main" aria-label={label} onClick={onOpen}>
+      {children}
+    </button>
   );
 }
