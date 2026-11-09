@@ -2,22 +2,56 @@ import { describe, expect, it } from "vitest";
 
 import { alphaBounds, expandBox } from "@/lib/images/bounds";
 
-function rgba(width: number, height: number, opaque: Array<[number, number]>): Uint8ClampedArray {
+function rgba(width: number, height: number, opaque: Array<[number, number]>, alpha = 255): Uint8ClampedArray {
   const data = new Uint8ClampedArray(width * height * 4);
-  for (const [x, y] of opaque) data[(y * width + x) * 4 + 3] = 255;
+  for (const [x, y] of opaque) data[(y * width + x) * 4 + 3] = alpha;
   return data;
 }
 
+/** All pixels in a rectangle. */
+function rect(x0: number, y0: number, w: number, h: number): Array<[number, number]> {
+  const out: Array<[number, number]> = [];
+  for (let y = y0; y < y0 + h; y++) for (let x = x0; x < x0 + w; x++) out.push([x, y]);
+  return out;
+}
+
 describe("alphaBounds", () => {
-  it("finds the box around opaque pixels", () => {
-    const data = rgba(10, 8, [[2, 3], [6, 3], [4, 5]]);
-    expect(alphaBounds(data, 10, 8)).toEqual({ x: 2, y: 3, width: 5, height: 3 });
+  it("finds the box around a solid garment", () => {
+    const data = rgba(100, 120, rect(20, 30, 40, 50));
+    expect(alphaBounds(data, 100, 120)).toEqual({ x: 20, y: 30, width: 40, height: 50 });
   });
 
-  it("ignores nearly transparent pixels", () => {
-    const data = rgba(4, 4, [[1, 1]]);
-    data[(0 * 4 + 3) * 4 + 3] = 10; // faint pixel at (3, 0), below threshold
-    expect(alphaBounds(data, 4, 4)).toEqual({ x: 1, y: 1, width: 1, height: 1 });
+  it("ignores stray specks far from the garment", () => {
+    // Garment in the middle plus single-pixel noise near two corners.
+    const data = rgba(200, 200, [...rect(60, 50, 80, 100), [2, 3], [195, 197]]);
+    expect(alphaBounds(data, 200, 200)).toEqual({ x: 60, y: 50, width: 80, height: 100 });
+  });
+
+  it("keeps thin parts attached to the garment, like sleeve tips", () => {
+    // Body 80x100, plus 1px-wide sleeve tips sticking out 15px on each side.
+    const sleeves = [...rect(45, 60, 15, 1), ...rect(140, 60, 15, 1)];
+    const data = rgba(200, 200, [...rect(60, 50, 80, 100), ...sleeves]);
+    expect(alphaBounds(data, 200, 200)).toEqual({ x: 45, y: 50, width: 110, height: 100 });
+  });
+
+  it("drops a speck even when it sits next to a thin attached part", () => {
+    // Sleeve tip reaches x=45; speck at x=20 is separated by empty columns.
+    const data = rgba(200, 200, [...rect(60, 50, 80, 100), ...rect(45, 60, 15, 1), [20, 60]]);
+    expect(alphaBounds(data, 200, 200)?.x).toBe(45);
+  });
+
+  it("ignores faint, nearly transparent background haze", () => {
+    const haze = rect(0, 0, 50, 50);
+    const data = rgba(50, 50, haze, 20); // whole image at alpha 20, below threshold
+    for (const [x, y] of rect(10, 10, 20, 25)) data[(y * 50 + x) * 4 + 3] = 255;
+    expect(alphaBounds(data, 50, 50)).toEqual({ x: 10, y: 10, width: 20, height: 25 });
+  });
+
+  it("keeps thin garments (e.g. a belt) instead of discarding them as noise", () => {
+    // A 1px-tall strap across most of the width: every row is below the line minimum
+    // in the other direction, so it falls back to the plain box rather than nothing.
+    const data = rgba(200, 200, rect(10, 100, 180, 1));
+    expect(alphaBounds(data, 200, 200)).toEqual({ x: 10, y: 100, width: 180, height: 1 });
   });
 
   it("returns null for a fully transparent image", () => {
