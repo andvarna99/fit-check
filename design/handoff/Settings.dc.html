@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr-bar">
+<a class="ib" href="Main.dc.html" aria-label="Back to Today"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a>
+<span></span><span></span>
+</header>
+<div class="gut" style="flex: none; margin-bottom: 20px"><h1 class="t-lg">Settings</h1></div>
+<div class="gut stack" style="gap: 24px; flex: 1">
+<section aria-labelledby="wlT" style="display: flex; flex-direction: column; gap: 8px">
+<h2 id="wlT" class="t-sm">Weather location</h2>
+<div class="group">
+<label class="li"><span class="row"><svg class="i s20" viewBox="0 0 24 24" style="color: #6a48d6" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg><span class="strong">Use current location</span></span><button class="toggle" role="switch" aria-checked="true" aria-label="Use current location"></button></label>
+<button class="li" style="width: 100%; border-left: 0; border-right: 0; border-bottom: 0; background: transparent; text-align: left"><span><span class="strong" style="display: block; color: #5e5478">Set a city</span><span class="cap">Turn off current location to choose one</span></span><svg class="i s20" viewBox="0 0 24 24" style="color: #5e5478" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+</div>
+</section>
+<section aria-labelledby="tuT" style="display: flex; flex-direction: column; gap: 8px">
+<h2 id="tuT" class="t-sm">Temperature unit</h2>
+<div role="group" aria-label="Temperature unit" class="seg"><button class="on" aria-pressed="true">°F</button><button aria-pressed="false">°C</button></div>
+</section>
+<section aria-labelledby="acT" style="display: flex; flex-direction: column; gap: 8px">
+<h2 id="acT" class="t-sm">Account</h2>
+<div class="group">
+<a class="li" href="Login.dc.html" style="text-decoration: none; color: #b3261e"><span class="row"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path></svg><span class="strong">Log out</span></span></a>
+</div>
+</section>
+</div>
+<div style="flex: none; padding: 0 16px 42px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<p class="px mut">Fit Check v0.1.0</p>
+<p class="cap">Made for one closet: yours.</p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

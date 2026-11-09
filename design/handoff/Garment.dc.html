@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Clothing photo placeholder</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; min-width: 24px; min-height: 24px">
+<sc-if value="{{tee}}" hint-placeholder-val="{{true}}"><svg viewBox="0 0 100 100" style="width: 100%; height: 100%" aria-hidden="true"><path d="M31 16 L42 12 Q50 21 58 12 L69 16 L88 33 L78 46 L70 40 L70 88 L30 88 L30 40 L22 46 L12 33 Z" fill="{{c}}" stroke="#241a3d" stroke-opacity="0.32" stroke-width="1.6" stroke-linejoin="round"></path><path d="M42 12 Q50 21 58 12" fill="none" stroke="#241a3d" stroke-opacity="0.25" stroke-width="1.6"></path></svg></sc-if>
+<sc-if value="{{jacket}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 100 100" style="width: 100%; height: 100%" aria-hidden="true"><path d="M33 12 L44 8 L50 22 L56 8 L67 12 L84 24 L91 80 L78 82 L72 46 L72 92 L28 92 L28 46 L22 82 L9 80 L16 24 Z" fill="{{c}}" stroke="#241a3d" stroke-opacity="0.32" stroke-width="1.6" stroke-linejoin="round"></path><path d="M50 22 L50 92 M44 8 L40 34 L50 22 M56 8 L60 34 L50 22" fill="none" stroke="#241a3d" stroke-opacity="0.28" stroke-width="1.6" stroke-linejoin="round"></path><circle cx="46" cy="50" r="1.8" fill="#241a3d" fill-opacity="0.35"></circle><circle cx="46" cy="64" r="1.8" fill="#241a3d" fill-opacity="0.35"></circle></svg></sc-if>
+<sc-if value="{{pants}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 100 100" style="width: 100%; height: 100%" aria-hidden="true"><path d="M31 8 L69 8 L77 92 L57 92 L50 34 L43 92 L23 92 Z" fill="{{c}}" stroke="#241a3d" stroke-opacity="0.32" stroke-width="1.6" stroke-linejoin="round"></path><path d="M31 15 L69 15 M50 15 L50 30" fill="none" stroke="#241a3d" stroke-opacity="0.25" stroke-width="1.6"></path></svg></sc-if>
+<sc-if value="{{skirt}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 100 100" style="width: 100%; height: 100%" aria-hidden="true"><path d="M33 18 L67 18 L67 27 L84 82 Q50 90 16 82 L33 27 Z" fill="{{c}}" stroke="#241a3d" stroke-opacity="0.32" stroke-width="1.6" stroke-linejoin="round"></path><path d="M33 27 L67 27 M42 27 L36 86 M58 27 L64 86 M50 27 L50 88" fill="none" stroke="#241a3d" stroke-opacity="0.2" stroke-width="1.4"></path></svg></sc-if>
+<sc-if value="{{dress}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 100 100" style="width: 100%; height: 100%" aria-hidden="true"><path d="M38 6 L43 6 Q50 18 57 6 L62 6 L63 30 L58 40 L81 90 Q50 97 19 90 L42 40 L37 30 Z" fill="{{c}}" stroke="#241a3d" stroke-opacity="0.32" stroke-width="1.6" stroke-linejoin="round"></path><path d="M42 40 Q50 44 58 40" fill="none" stroke="#241a3d" stroke-opacity="0.28" stroke-width="1.6"></path></svg></sc-if>
+<sc-if value="{{shoe}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 100 100" style="width: 100%; height: 100%" aria-hidden="true"><path d="M12 70 Q12 46 24 40 L38 38 Q44 54 62 56 L82 60 Q92 63 90 72 Z" fill="{{c}}" stroke="#241a3d" stroke-opacity="0.32" stroke-width="1.6" stroke-linejoin="round"></path><path d="M10 70 L91 70 L91 78 Q50 82 10 78 Z" fill="#ffffff" stroke="#241a3d" stroke-opacity="0.32" stroke-width="1.6" stroke-linejoin="round"></path><path d="M40 44 L46 41 M44 50 L50 46 M50 54 L56 50" fill="none" stroke="#241a3d" stroke-opacity="0.3" stroke-width="1.6" stroke-linecap="round"></path></svg></sc-if>
+<sc-if value="{{bag}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 100 100" style="width: 100%; height: 100%" aria-hidden="true"><path d="M35 42 Q35 18 50 18 Q65 18 65 42" fill="none" stroke="#241a3d" stroke-opacity="0.45" stroke-width="3" stroke-linecap="round"></path><path d="M22 42 L78 42 L84 86 Q50 90 16 86 Z" fill="{{c}}" stroke="#241a3d" stroke-opacity="0.32" stroke-width="1.6" stroke-linejoin="round"></path><path d="M22 54 L78 54" fill="none" stroke="#241a3d" stroke-opacity="0.22" stroke-width="1.6"></path><rect x="46" y="51" width="8" height="7" rx="1.5" fill="#c9cad6" stroke="#241a3d" stroke-opacity="0.35" stroke-width="1.2"></rect></svg></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"kind":{"editor":"enum","options":["tee","jacket","pants","skirt","dress","shoe","bag"],"default":"tee"},"color":{"editor":"color","default":"#cdbdfa"},"$preview":{"width":160,"height":160}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const k = this.props.kind ?? 'tee';
+    return {
+      c: this.props.color ?? '#cdbdfa',
+      tee: k === 'tee', jacket: k === 'jacket', pants: k === 'pants', skirt: k === 'skirt',
+      dress: k === 'dress', shoe: k === 'shoe', bag: k === 'bag'
+    };
+  }
+}
+</script>
+</body>
+</html>

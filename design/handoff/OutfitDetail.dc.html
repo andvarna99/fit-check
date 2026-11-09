@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Outfit detail</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr-bar">
+<a class="ib" href="Outfits.dc.html" aria-label="Back to outfits"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a>
+<span></span>
+<span style="justify-self: end; display: flex">
+<a class="ib" href="Builder.dc.html" aria-label="Edit outfit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg></a>
+<button class="ib" aria-label="Delete outfit" style="color: #b3261e"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+</span>
+</header>
+<div class="gut" style="display: flex; flex-direction: column; gap: 6px; flex: none">
+<h1 class="t-lg">Brunch uniform</h1>
+<div class="row" style="gap: 8px; flex-wrap: wrap"><span class="badge b-lav">Casual</span><span class="cap">Worn 4 times · last worn Oct 30</span></div>
+</div>
+<ul class="gut" style="display: flex; flex-direction: column; gap: 8px; margin-top: 16px; flex: 1; min-height: 0">
+<sc-for list="{{slots}}" as="s" hint-placeholder-count="5">
+<li class="slot" style="height: 88px; gap: 14px; padding: 0 14px 0 8px">
+<span class="thumb" style="width: 72px; height: 72px; box-shadow: none"><dc-import name="Garment" kind="{{s.k}}" color="{{s.c}}" hint-size="100%,100%"></dc-import></span>
+<span class="grow"><span class="px mut" style="display: block">{{s.slot}}</span><span class="strong" style="display: block">{{s.n}}</span></span>
+<a class="ib" href="ItemDetail.dc.html" aria-label="{{s.open}}"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a>
+</li>
+</sc-for>
+</ul>
+<div class="gut" style="padding-bottom: 42px; flex: none; display: flex; gap: 12px">
+<a class="btn btn-p btn-full" href="WearSheet.dc.html">Wear today</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const rows = [
+      ['Outerwear', 'Pink cropped jacket', 'jacket', '#f4a7c4'],
+      ['Top', 'Black baby tee', 'tee', '#2b2b33'],
+      ['Bottom', 'Wide-leg jeans', 'pants', '#6d8fb8'],
+      ['Shoes', 'White sneakers', 'shoe', '#fafafa'],
+      ['Accessory', 'Lilac shoulder bag', 'bag', '#c9b6f2']
+    ];
+    return { slots: rows.map(([slot, n, k, c]) => ({ slot, n, k, c, open: 'Open ' + n })) };
+  }
+}
+</script>
+</body>
+</html>

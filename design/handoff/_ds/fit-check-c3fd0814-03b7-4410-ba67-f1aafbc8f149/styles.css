@@ -1,0 +1,8 @@
+/* Fit Check design system entry point. Import this one file to get every token and component style. */
+@import url('./tokens/fonts.css');
+@import url('./tokens/colors.css');
+@import url('./tokens/typography.css');
+@import url('./tokens/spacing.css');
+@import url('./tokens/base.css');
+@import url('./tokens/motion.css');
+@import url('./components/components.css');

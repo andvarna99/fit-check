@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Removing background</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr-bar">
+<a class="ib" href="Capture.dc.html" aria-label="Back"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a>
+<h1 class="ttl">Add an item</h1>
+<span class="px mut" style="justify-self: end; padding-right: 8px">2/3</span>
+</header>
+<div class="gut" style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 24px">
+<section class="win" aria-label="Removing background" aria-busy="true">
+<div class="win-bar"><span class="px">Bg-remove.exe</span><span class="win-btns"><span class="win-btn"></span><span class="win-btn"></span></span></div>
+<div style="height: 340px; position: relative; overflow: hidden; background: #ffffff">
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 58%; background: linear-gradient(135deg,#d9cfc1,#b9ab98); padding: 34px 60px 0">
+<div style="position: absolute; left: 70px; right: 70px; top: 30px; height: 320px"><dc-import name="Garment" kind="jacket" color="#f4a7c4" hint-size="100%,100%"></dc-import></div>
+</div>
+<div style="position: absolute; left: 0; right: 0; top: 58%; bottom: 0; padding: 0 60px; overflow: hidden">
+<div style="position: absolute; left: 70px; right: 70px; top: -197px; height: 320px"><dc-import name="Garment" kind="jacket" color="#f4a7c4" hint-size="100%,100%"></dc-import></div>
+</div>
+<div style="position: absolute; left: 0; right: 0; top: 58%; height: 3px; background: linear-gradient(90deg,#ff8cc6,#9b7bf0,#8fd3ff,#8ee8c4); box-shadow: 0 0 14px 4px rgba(155,123,240,0.55)"></div>
+<svg class="spk" viewBox="0 0 24 24" style="right: 40px; top: 52%; width: 18px; height: 18px; fill: #ffffff" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+<svg class="spk" viewBox="0 0 24 24" style="left: 34px; top: 61%; width: 14px; height: 14px; fill: #ff8cc6" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+</div>
+<div style="padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #c9cad6" role="progressbar" aria-label="Removing background" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+<div class="between"><span class="px-lg">Snipping...</span><span class="px mut">70%</span></div>
+<div class="prog"><i style="width: 70%"></i></div>
+</div>
+</section>
+<p class="mut" style="text-align: center">Erasing the background on your phone. Nothing leaves it until you save.</p>
+</div>
+<div class="gut" style="padding-bottom: 42px; flex: none"><a class="btn btn-s btn-full" href="Capture.dc.html">Cancel</a></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

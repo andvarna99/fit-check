@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Review queue</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr-bar">
+<a class="ib" href="BulkProcessing.dc.html" aria-label="Back"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a>
+<h1 class="ttl">Review 30</h1>
+<a class="btn btn-g btn-sm" href="QuickTag.dc.html" style="justify-self: end">Select</a>
+</header>
+<div class="gut" style="flex: none">
+<div role="group" aria-label="Show" class="seg"><button class="on" aria-pressed="true">All 30</button><button aria-pressed="false">Needs tags 18</button><button aria-pressed="false">Tagged 12</button></div>
+</div>
+<div class="gut grid3" style="margin-top: 12px; flex: 1; min-height: 0; overflow: hidden; align-content: start">
+<sc-for list="{{items}}" as="it" hint-placeholder-count="12">
+<a class="card" href="OneByOne.dc.html" aria-label="{{it.label}}" style="text-decoration: none; color: inherit">
+<div class="ph" style="padding: 12px"><dc-import name="Garment" kind="{{it.k}}" color="{{it.c}}" hint-size="100%,100%"></dc-import>
+<sc-if value="{{it.tagged}}" hint-placeholder-val="{{false}}"><span class="badge b-done" style="left: 6px; top: 6px; font-size: 11px; padding: 1px 6px"><svg class="i" viewBox="0 0 24 24" style="width: 10px; height: 10px; stroke-width: 3.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Tagged</span></sc-if>
+<sc-if value="{{it.untagged}}" hint-placeholder-val="{{true}}"><span class="badge b-tags" style="left: 6px; top: 6px; font-size: 11px; padding: 1px 6px">Needs tags</span></sc-if>
+</div>
+</a>
+</sc-for>
+</div>
+<div style="background: #ffffff; box-shadow: 0 -8px 32px rgba(36,26,61,0.16); border-radius: 24px 24px 0 0; padding: 14px 16px 34px; display: flex; flex-direction: column; gap: 8px; flex: none; margin-top: 12px">
+<p class="cap" style="text-align: center">12 tagged items join your closet. 18 untagged save as drafts.</p>
+<div style="display: flex; gap: 12px">
+<a class="btn btn-s" href="BatchDone.dc.html" style="flex: 1">Save drafts</a>
+<a class="btn btn-p" href="BatchDone.dc.html" style="flex: 1">Save all</a>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const list = [['tee', '#f2e8d5', 1], ['shoe', '#2b2b33', 0], ['pants', '#2f3e66', 1], ['dress', '#c8414b', 1], ['skirt', '#a8c3a0', 0], ['jacket', '#7a5240', 0], ['bag', '#2b2b33', 0], ['tee', '#c9b6f2', 1], ['shoe', '#c49a6c', 0], ['pants', '#9aa0a6', 0], ['tee', '#f4a7c4', 1], ['shoe', '#fafafa', 0]];
+    return { items: list.map(([k, c, t], i) => ({ k, c, tagged: !!t, untagged: !t, label: 'Item ' + (i + 1) + (t ? ', tagged' : ', needs tags') })) };
+  }
+}
+</script>
+</body>
+</html>

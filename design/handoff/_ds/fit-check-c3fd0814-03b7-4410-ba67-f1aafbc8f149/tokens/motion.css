@@ -1,0 +1,12 @@
+/* Fit Check · Motion tokens (from the design system README). */
+:root {
+  --dur-press: 160ms;    /* presses, toggles */
+  --dur-sheet: 240ms;    /* bottom sheets in/out */
+  --dur-pop: 320ms;      /* MATCH!/CLASH swap */
+  --stagger-shuffle: 60ms; /* per-slot delay when shuffling */
+  --ease-out: ease-out;
+  --ease-pop: cubic-bezier(.34, 1.56, .64, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-pop: 0ms; --stagger-shuffle: 0ms; }
+}

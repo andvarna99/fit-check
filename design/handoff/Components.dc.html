@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shared components</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 1280px; height: 1180px; box-sizing: border-box; padding: 48px; background: #fbf9ff; color: #241a3d; font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-content: start">
+
+<section class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<h2 class="t-sm">Buttons</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+<button class="btn btn-p">Wear this</button>
+<button class="btn btn-s">Shuffle</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+<button class="btn btn-d">Delete</button>
+<button class="btn btn-dg">Delete</button>
+<button class="btn btn-g">Clear all</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center">
+<button class="btn btn-dis" disabled>Wear this</button>
+<button class="btn btn-p" aria-busy="true" style="opacity: 0.85"><span style="display: inline-grid; grid-template-columns: repeat(3, 4px); gap: 2px" aria-hidden="true"><i style="width: 4px; height: 4px; background: #fff"></i><i style="width: 4px; height: 4px; background: rgba(255,255,255,0.6)"></i><i style="width: 4px; height: 4px; background: rgba(255,255,255,0.3)"></i></span>Signing in...</button>
+</div>
+<div style="display: flex; gap: 10px; align-items: center">
+<button class="ib big" aria-label="Shuffle"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg></button>
+<button class="ib fill" aria-label="Settings"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg></button>
+<button class="lock" aria-label="Lock"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg></button>
+<button class="lock on" aria-label="Unlock" aria-pressed="true"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></button>
+</div>
+<p class="cap">Primary is the jelly gradient, one per view. Labels are written in sentence case and uppercased by CSS.</p>
+</section>
+
+<section class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<h2 class="t-sm">Chips and badges</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 0 8px">
+<button class="chip">Casual</button>
+<button class="chip on" aria-pressed="true">Smart casual</button>
+<button class="chip out"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"></path></svg>Filter <span class="n">2</span></button>
+<span class="chip on" style="padding: 0 4px 0 12px">fuzzy<button class="ib" style="width: 28px; height: 28px" aria-label="Remove tag"><svg class="i s16" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg></button></span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span class="badge b-clean">Clean</span><span class="badge b-laundry">Laundry</span><span class="badge b-stored">Stored</span><span class="badge b-tags">Needs tags</span><span class="badge b-done">Tagged</span>
+</div>
+<h3 class="t-sm" style="margin-top: 6px">Match / clash</h3>
+<div style="display: flex; gap: 16px; align-items: center; padding: 6px 0">
+<span class="match">Match! <span style="opacity: 0.7">92</span></span>
+<span class="clash"><svg class="i s16" viewBox="0 0 24 24" style="stroke-width: 2.6" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path></svg>Clash <span style="opacity: 0.7">41</span></span>
+</div>
+<p class="cap">Score from the recommender. Score 70 and up reads MATCH!, under 50 reads CLASH, in between shows the score alone. Swaps pop in 320ms.</p>
+</section>
+
+<section class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 class="t-sm">Dress-up slot</h2>
+<div class="slot" style="height: 78px">
+<button class="lock" aria-label="Lock top"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg></button>
+<span class="slot-lbl">Top 3/12</span>
+<div class="car"><button class="ib" aria-label="Previous"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button><div class="ghost"><dc-import name="Garment" kind="tee" color="#2f3e66" hint-size="100%,100%"></dc-import></div><div class="hero" style="width: 80px"><dc-import name="Garment" kind="tee" color="#f2e8d5" hint-size="100%,100%"></dc-import></div><div class="ghost"><dc-import name="Garment" kind="tee" color="#f4a7c4" hint-size="100%,100%"></dc-import></div><button class="ib" aria-label="Next"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button></div>
+</div>
+<div class="slot locked" style="height: 78px">
+<button class="lock on" aria-pressed="true" aria-label="Unlock bottom"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></button>
+<span class="slot-lbl">Bottom · locked</span>
+<div class="car"><button class="ib" aria-label="Previous"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button><div class="ghost"></div><div class="hero" style="width: 80px"><dc-import name="Garment" kind="pants" color="#6d8fb8" hint-size="100%,100%"></dc-import></div><div class="ghost"></div><button class="ib" aria-label="Next"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button></div>
+</div>
+<button class="slot-add"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>Outerwear</button>
+<p class="cap">Swipe or tap arrows. Locked slots keep a chrome frame and skip shuffle. Optional slots collapse to a dashed add row.</p>
+</section>
+
+<section class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 class="t-sm">Form controls</h2>
+<div class="field"><label for="c1">Name</label><input id="c1" class="input" value="Cream knit tee"></div>
+<div class="field"><span class="lbl">Subcategory</span><button class="input"><span>Tee</span><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div>
+<div class="field"><label for="c2">Category</label><div id="c2" class="input err"><span class="mut">Choose one</span></div><p class="errtxt">Pick a category to save.</p></div>
+<div class="sws"><button class="sw on" aria-label="Pink"><i style="background: #f4a7c4"></i></button><button class="sw" aria-label="Cream"><i style="background: #f2e8d5"></i></button><button class="sw" aria-label="Navy"><i style="background: #2f3e66"></i></button><button class="sw" aria-label="Black"><i style="background: #2b2b33"></i></button><button class="sw" aria-label="White"><i style="background: #ffffff"></i></button></div>
+<div class="seg"><button>1</button><button class="on">2</button><button>3</button><button>4</button><button>5</button></div>
+<div class="row"><button class="input" style="flex: 1"><span>Mar 14, 2026</span><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg></button><button class="toggle" role="switch" aria-checked="true" aria-label="Toggle"></button></div>
+</section>
+
+<section class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 class="t-sm">Feedback</h2>
+<div class="toast" role="status"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>Saved to your closet</div>
+<div class="banner" role="status"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2l20 20M8.5 16.5a5 5 0 0 1 7 0M2 8.8a15 15 0 0 1 4.2-2.8M10.7 5.1A15 15 0 0 1 22 8.8M12 20h.01"></path></svg>You're offline. Showing your saved closet.</div>
+<div class="banner" role="alert" style="background: #fdecea; color: #b3261e"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4M12 16h.01"></path></svg><span class="grow">Couldn't upload 3 photos.</span><span class="strong">Retry</span></div>
+<div class="card" style="padding: 16px; border-radius: 20px; box-shadow: 0 0 0 1px #e2d9f7; display: flex; flex-direction: column; gap: 10px">
+<p class="t-sm">Delete this outfit?</p>
+<p class="cap">Its items stay in your closet.</p>
+<div style="display: flex; gap: 8px"><button class="btn btn-s btn-sm" style="flex: 1">Keep it</button><button class="btn btn-d btn-sm" style="flex: 1">Delete</button></div>
+</div>
+</section>
+
+<section class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 class="t-sm">Loading and window panel</h2>
+<div class="win">
+<div class="win-bar"><span class="px">Loading...</span><span class="win-btns"><span class="win-btn"></span><span class="win-btn"></span></span></div>
+<div style="padding: 12px; display: flex; flex-direction: column; gap: 8px"><div class="between"><span class="px-lg">Styling...</span><span class="px mut">60%</span></div><div class="prog"><i style="width: 60%"></i></div></div>
+</div>
+<div class="row" style="gap: 16px">
+<span aria-hidden="true" style="display: grid; grid-template-columns: repeat(3, 8px); gap: 3px"><i style="width: 8px; height: 8px; background: #6a48d6"></i><i style="width: 8px; height: 8px; background: #9b7bf0"></i><i style="width: 8px; height: 8px; background: #cdbdfa"></i><i style="width: 8px; height: 8px; background: #e3d6ff"></i><i style="width: 8px; height: 8px"></i><i style="width: 8px; height: 8px; background: #6a48d6"></i><i style="width: 8px; height: 8px; background: #cdbdfa"></i><i style="width: 8px; height: 8px; background: #9b7bf0"></i><i style="width: 8px; height: 8px; background: #6a48d6"></i></span>
+<span class="cap">Pixel spinner for in-place loads: cells cycle lavender every 80ms.</span>
+</div>
+<div class="row" style="gap: 10px"><div style="height: 56px; flex: 1; border-radius: 16px; background: #f3eeff"></div><div style="height: 56px; flex: 1; border-radius: 16px; background: #f3eeff"></div></div>
+<p class="cap">Skeletons use surface-100 blocks in the real layout. Window panels only at hero moments.</p>
+</section>
+
+<section class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 class="t-sm">Cards</h2>
+<div class="grid2">
+<div class="card"><div class="ph"><dc-import name="Garment" kind="pants" color="#6d8fb8" hint-size="100%,100%"></dc-import><span class="badge b-laundry">Laundry</span></div><div class="cardcap"><p class="nm">Wide-leg jeans</p><p class="cap">Bottom · Jeans</p></div></div>
+<div class="card"><div class="collage"><div><dc-import name="Garment" kind="jacket" color="#f4a7c4" hint-size="100%,100%"></dc-import></div><div><dc-import name="Garment" kind="tee" color="#2b2b33" hint-size="100%,100%"></dc-import></div><div><dc-import name="Garment" kind="pants" color="#6d8fb8" hint-size="100%,100%"></dc-import></div><div><dc-import name="Garment" kind="shoe" color="#fafafa" hint-size="100%,100%"></dc-import></div></div><div class="cardcap"><p class="nm">Brunch uniform</p><p class="cap">Casual · worn 4x</p></div></div>
+</div>
+</section>
+
+<section class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 class="t-sm">Weather card and sheet</h2>
+<div class="wx" style="height: 60px"><svg class="i" viewBox="0 0 24 24" style="width: 30px; height: 30px; color: #1f5f8f" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"></path></svg><span class="tmp">71°</span><div class="grow"><p class="callout">Sunny</p><p class="cap" style="color: #1f5f8f">H 75° · L 58°</p></div></div>
+<div style="border-radius: 28px 28px 0 0; background: #fff; box-shadow: 0 -8px 32px rgba(36,26,61,0.16); padding: 10px 16px 18px; display: flex; flex-direction: column; gap: 10px; margin-top: 8px">
+<div class="grab"></div><p class="t-md">Sheet title</p><p class="cap">28px top radius, grab handle, actions pinned to the bottom above the home indicator.</p>
+</div>
+</section>
+
+<section class="card" style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 class="t-sm">Type and empty-state style</h2>
+<p class="t-lg">Your closet</p>
+<p class="t-md">Filter your closet</p>
+<p>DM Sans body, 16px so iOS never zooms on focus.</p>
+<p class="px">Silkscreen · badges · 12/30</p>
+<div class="row" style="gap: 12px; margin-top: 4px">
+<div class="win" style="width: 120px"><div class="win-bar" style="height: 22px"><span class="px" style="font-size: 11px">Empty.exe</span></div><div style="height: 60px; position: relative"><div class="plaid" style="position: absolute; left: 0; right: 0; bottom: 0; height: 10px"></div></div></div>
+<p class="cap" style="flex: 1">Empty states: a small window panel, line art in lavender, at most one plaid strip and three sparkles, one primary action.</p>
+</div>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1180}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

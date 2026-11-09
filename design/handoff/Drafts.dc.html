@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drafts</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr-bar">
+<a class="ib" href="Closet.dc.html" aria-label="Back to closet"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a>
+<h1 class="ttl">Drafts</h1>
+<button class="btn btn-g btn-sm" style="justify-self: end">Cancel</button>
+</header>
+<div class="gut" style="flex: none; margin: 4px 0 12px">
+<p class="mut">6 items need tags. Tap to tag one, or select a few and tag them together.</p>
+</div>
+<div class="gut grid3" style="flex: 1; min-height: 0; overflow: hidden; align-content: start">
+<sc-for list="{{items}}" as="it" hint-placeholder-count="9">
+<button class="card" aria-pressed="{{it.sel}}" aria-label="{{it.label}}" style="border: 0; padding: 0; text-align: left; box-shadow: {{it.ring}}">
+<div class="ph" style="padding: 12px"><dc-import name="Garment" kind="{{it.k}}" color="{{it.col}}" hint-size="100%,100%"></dc-import>
+<span class="badge b-tags" style="left: 6px; top: 6px; font-size: 11px; padding: 1px 6px">Needs tags</span>
+<span style="position: absolute; right: 6px; bottom: 6px; width: 26px; height: 26px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; background: {{it.dot}}; box-shadow: {{it.dotRing}}">
+<sc-if value="{{it.on}}" hint-placeholder-val="{{false}}"><svg class="i s16" viewBox="0 0 24 24" style="stroke-width: 3" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+</span>
+</div>
+</button>
+</sc-for>
+</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; background: #fff; box-shadow: 0 -8px 32px rgba(36,26,61,0.16); border-radius: 24px 24px 0 0; padding: 14px 16px 34px; display: flex; align-items: center; gap: 12px; z-index: 5">
+<div class="grow"><p class="px">3 selected</p><p class="cap">Same values go to all 3</p></div>
+<a class="btn btn-p" href="QuickTag.dc.html">Quick-tag</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const raw = [
+      ['shoe', '#2b2b33', true], ['shoe', '#7a5240', true], ['tee', '#9aa0a6', false],
+      ['shoe', '#c8414b', true], ['bag', '#c49a6c', false], ['skirt', '#2f3e66', false]
+    ];
+    return {
+      items: raw.map(([k, col, on], i) => ({
+        k, col, on,
+        sel: on ? 'true' : 'false',
+        label: 'Draft item ' + (i + 1) + (on ? ', selected' : ''),
+        ring: on ? '0 0 0 3px #6a48d6' : '0 1px 2px rgba(36,26,61,0.06), 0 6px 16px rgba(36,26,61,0.07)',
+        dot: on ? '#6a48d6' : 'rgba(255,255,255,0.9)',
+        dotRing: on ? 'none' : 'inset 0 0 0 1.5px #8c7fb0'
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

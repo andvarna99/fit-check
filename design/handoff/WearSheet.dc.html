@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wear confirmation</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr" style="min-height: 60px; align-items: flex-start" aria-hidden="true">
+<div><p class="t-lg">Good morning</p><p class="t-sm mut">Monday, November 9</p></div>
+</header>
+<div class="gut" style="margin-top: 8px" aria-hidden="true">
+<div class="wx" style="height: 60px"><span class="tmp">64°</span><span class="callout">Partly cloudy</span></div>
+</div>
+<div class="tabwrap"><dc-import name="TabBar" active="today" hint-size="390px,90px"></dc-import></div>
+<div class="scrim"></div>
+<section class="sheet" role="dialog" aria-modal="true" aria-labelledby="wsT" style="padding-top: 10px">
+<div class="grab"></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; padding-top: 8px">
+<span style="width: 56px; height: 56px; border-radius: 999px; background: #8ee8c4; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 3px rgba(142,232,196,0.45), 0 0 20px rgba(142,232,196,0.9)"><svg class="i" viewBox="0 0 24 24" style="width: 28px; height: 28px; stroke-width: 2.6" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span>
+<h2 id="wsT" class="t-md">Logged for today</h2>
+<p class="cap">Monday, November 9 · 64° partly cloudy</p>
+<svg class="spk" viewBox="0 0 24 24" style="left: 108px; top: 6px; width: 18px; height: 18px; fill: #ff8cc6" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+<svg class="spk" viewBox="0 0 24 24" style="right: 112px; top: 40px; width: 12px; height: 12px; fill: #cdbdfa" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+</div>
+<div style="display: flex; justify-content: center; gap: 8px">
+<span class="thumb" style="width: 76px; height: 76px"><dc-import name="Garment" kind="tee" color="#f2e8d5" hint-size="100%,100%"></dc-import></span>
+<span class="thumb" style="width: 76px; height: 76px"><dc-import name="Garment" kind="pants" color="#6d8fb8" hint-size="100%,100%"></dc-import></span>
+<span class="thumb" style="width: 76px; height: 76px"><dc-import name="Garment" kind="shoe" color="#fafafa" hint-size="100%,100%"></dc-import></span>
+</div>
+<fieldset style="border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<legend class="strong" style="text-align: center; padding: 0; margin: 0 auto 4px">How much do you love it? <span class="cap">(optional)</span></legend>
+<div class="stars">
+<button class="star on" aria-label="1 star" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></button>
+<button class="star on" aria-label="2 stars" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></button>
+<button class="star on" aria-label="3 stars" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></button>
+<button class="star on" aria-label="4 stars" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></button>
+<button class="star" aria-label="5 stars" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></button>
+</div>
+<span class="px mut">4 of 5</span>
+</fieldset>
+<a class="btn btn-p btn-full" href="Main.dc.html">Done</a>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
