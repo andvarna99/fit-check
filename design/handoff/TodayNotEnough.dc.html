@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Today, not enough items</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr" style="min-height: 60px; align-items: flex-start">
+<div><h1 class="t-lg">Good morning</h1><p class="t-sm mut">Monday, November 9</p></div>
+<a class="ib fill" href="Settings.dc.html" aria-label="Settings"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg></a>
+</header>
+<div class="gut" style="margin-top: 8px; flex: none">
+<section class="wx" aria-label="Weather" style="height: 60px">
+<svg class="i" viewBox="0 0 24 24" style="width: 32px; height: 32px; color: #1f5f8f" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"></path></svg>
+<span class="tmp">71°</span>
+<div class="grow"><p class="callout">Sunny</p><p class="cap" style="color: #1f5f8f">H 75° · L 58°</p></div>
+</section>
+</div>
+<section class="win" aria-label="Not enough items yet" style="margin: 16px 16px 0; flex: 1; min-height: 0; display: flex; flex-direction: column">
+<div class="win-bar"><span class="px">Dress-up.exe</span><span class="win-btns"><span class="win-btn"></span><span class="win-btn"></span></span></div>
+<div style="padding: 24px 20px 20px; display: flex; flex-direction: column; gap: 16px; flex: 1">
+<div style="display: flex; flex-direction: column; gap: 6px; text-align: center; align-items: center">
+<span class="badge b-tags">Need 2 more</span>
+<h2 class="t-md">Almost ready to style you</h2>
+<p class="mut">An outfit needs a top or dress, a bottom and shoes. Here's what's missing.</p>
+</div>
+<ul class="group" style="box-shadow: none; border: 1px solid #e2d9f7">
+<li class="li"><span class="row"><span class="thumb" style="width: 44px; height: 44px"><dc-import name="Garment" kind="tee" color="#f4a7c4" hint-size="100%,100%"></dc-import></span><span class="strong">Tops or dresses</span></span><span class="badge b-clean"><svg class="i s16" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>3 added</span></li>
+<li class="li"><span class="row"><span class="thumb" style="width: 44px; height: 44px; background: #f3eeff; box-shadow: none; display: flex; align-items: center; justify-content: center; color: #5e5478"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg></span><span class="strong">Bottoms</span></span><span class="badge b-tags">Need 1</span></li>
+<li class="li"><span class="row"><span class="thumb" style="width: 44px; height: 44px; background: #f3eeff; box-shadow: none; display: flex; align-items: center; justify-content: center; color: #5e5478"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg></span><span class="strong">Shoes</span></span><span class="badge b-tags">Need 1</span></li>
+</ul>
+</div>
+</section>
+<div class="gut" style="margin-top: 12px; margin-bottom: 12px; flex: none">
+<a class="btn btn-p btn-full" href="AddMenu.dc.html"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>Add items</a>
+</div>
+<div class="tabspace"></div>
+<div class="tabwrap"><dc-import name="TabBar" active="today" hint-size="390px,90px"></dc-import></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

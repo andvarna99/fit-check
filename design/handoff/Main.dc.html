@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Today</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr" style="min-height: 60px; align-items: flex-start">
+<div>
+<h1 class="t-lg">Good morning</h1>
+<p class="t-sm mut">Monday, November 9</p>
+</div>
+<a class="ib fill" href="Settings.dc.html" aria-label="Settings"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg></a>
+</header>
+
+<div class="gut" style="margin-top: 8px; flex: none">
+<section class="wx" aria-label="Weather" style="height: 60px">
+<svg class="i" viewBox="0 0 24 24" style="width: 32px; height: 32px; color: #1f5f8f" aria-hidden="true"><path d="M12 2v2M4.9 4.9l1.4 1.4M20 12h2M19.1 4.9l-1.4 1.4M15.9 13A4 4 0 0 0 8.1 9.8"></path><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"></path></svg>
+<span class="tmp">64°</span>
+<div class="grow">
+<p class="callout">Partly cloudy</p>
+<p class="cap" style="color: #1f5f8f">H 68° · L 51°</p>
+</div>
+<span class="badge" style="background: #ffffff; color: #1f5f8f">Light layer</span>
+</section>
+</div>
+
+<div class="chips" role="group" aria-label="Occasion" style="margin-top: 6px">
+<button class="chip on" aria-pressed="true">Casual</button>
+<button class="chip" aria-pressed="false">Smart casual</button>
+<button class="chip" aria-pressed="false">Formal</button>
+</div>
+
+<section class="win" aria-label="Suggested outfit" style="margin: 6px 16px 0; flex: 1; min-height: 0; display: flex; flex-direction: column">
+<div class="win-bar"><span class="px">Dress-up.exe</span><span class="win-btns"><span class="win-btn"></span><span class="win-btn"></span></span></div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px 10px 4px; position: relative">
+<span class="match" role="status">Match! <span style="opacity: 0.7">92</span></span>
+<span class="cap">Colors agree · warm enough</span>
+<svg class="spk" viewBox="0 0 24 24" style="left: 4px; top: 2px; width: 12px; height: 12px; fill: #ff8cc6" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+<svg class="spk" viewBox="0 0 24 24" style="left: 112px; top: 30px; width: 10px; height: 10px; fill: #cdbdfa" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 6px 8px 8px">
+<button class="slot-add"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>Outerwear</button>
+
+<div class="slot" style="height: 78px" aria-label="Top, 3 of 12, Cream knit tee">
+<button class="lock" aria-pressed="false" aria-label="Lock top"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg></button>
+<span class="slot-lbl">Top 3/12</span>
+<div class="car">
+<button class="ib" aria-label="Previous top"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
+<div class="ghost"><dc-import name="Garment" kind="tee" color="#2f3e66" hint-size="100%,100%"></dc-import></div>
+<div class="hero" style="width: 84px"><dc-import name="Garment" kind="tee" color="#f2e8d5" hint-size="100%,100%"></dc-import></div>
+<div class="ghost"><dc-import name="Garment" kind="tee" color="#f4a7c4" hint-size="100%,100%"></dc-import></div>
+<button class="ib" aria-label="Next top"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+</div>
+</div>
+
+<div class="slot locked" style="height: 78px" aria-label="Bottom, locked, Wide-leg jeans">
+<button class="lock on" aria-pressed="true" aria-label="Unlock bottom"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></button>
+<span class="slot-lbl">Bottom · locked</span>
+<div class="car">
+<button class="ib" aria-label="Previous bottom"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
+<div class="ghost"><dc-import name="Garment" kind="skirt" color="#2b2b33" hint-size="100%,100%"></dc-import></div>
+<div class="hero" style="width: 84px"><dc-import name="Garment" kind="pants" color="#6d8fb8" hint-size="100%,100%"></dc-import></div>
+<div class="ghost"><dc-import name="Garment" kind="pants" color="#c49a6c" hint-size="100%,100%"></dc-import></div>
+<button class="ib" aria-label="Next bottom"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+</div>
+</div>
+
+<div class="slot" style="height: 66px" aria-label="Shoes, 2 of 6, White sneakers">
+<button class="lock" aria-pressed="false" aria-label="Lock shoes"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg></button>
+<span class="slot-lbl">Shoes 2/6</span>
+<div class="car">
+<button class="ib" aria-label="Previous shoes"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
+<div class="ghost"><dc-import name="Garment" kind="shoe" color="#7a5240" hint-size="100%,100%"></dc-import></div>
+<div class="hero" style="width: 84px"><dc-import name="Garment" kind="shoe" color="#fafafa" hint-size="100%,100%"></dc-import></div>
+<div class="ghost"><dc-import name="Garment" kind="shoe" color="#2b2b33" hint-size="100%,100%"></dc-import></div>
+<button class="ib" aria-label="Next shoes"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+</div>
+</div>
+
+<button class="slot-add"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>Accessory</button>
+</div>
+</section>
+
+<div class="gut" style="display: flex; gap: 12px; margin-top: 12px; margin-bottom: 12px; flex: none">
+<button class="ib big" aria-label="Shuffle unlocked slots"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg></button>
+<a class="btn btn-p grow" href="WearSheet.dc.html">Wear this</a>
+<button class="ib big" aria-label="Save outfit"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg></button>
+</div>
+<div class="tabspace"></div>
+<div class="tabwrap"><dc-import name="TabBar" active="today" hint-size="390px,90px"></dc-import></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

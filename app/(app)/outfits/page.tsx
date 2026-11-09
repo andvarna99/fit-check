@@ -1,11 +1,12 @@
-import { PageShell } from "@/components/layout/page-shell";
+import { ScreenHeader } from "@/components/ui/screen-header";
 
 export const metadata = { title: "Outfits" };
 
 export default function OutfitsPage() {
   return (
-    <PageShell title="Outfits">
-      <p className="text-neutral-600">Saved outfits will appear here.</p>
-    </PageShell>
+    <>
+      <ScreenHeader title="Outfits" />
+      <p className="gutter type-body text-ink-muted">Saved outfits will appear here.</p>
+    </>
   );
 }

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Closet, no results, offline</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<div class="gut" style="flex: none; margin-bottom: 4px">
+<div class="banner" role="status" style="padding: 8px 14px"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2l20 20M8.5 16.5a5 5 0 0 1 7 0M2 8.8a15 15 0 0 1 4.2-2.8M10.7 5.1A15 15 0 0 1 22 8.8M5 12.9a10 10 0 0 1 5.2-2.8M19 12.9a10 10 0 0 0-2.3-1.7M12 20h.01"></path></svg><span class="grow">You're offline. Showing your saved closet.</span></div>
+</div>
+<header class="hdr"><div class="row" style="align-items: baseline; gap: 10px"><h1 class="t-lg">Closet</h1><span class="cap">0 of 48 items</span></div></header>
+<div class="gut" style="flex: none; margin-top: 4px">
+<label class="search" style="box-shadow: inset 0 0 0 1.5px #6a48d6; background: #fff"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg><input type="search" value="velvet" aria-label="Search your closet"><button class="ib" aria-label="Clear search" style="margin-right: -12px"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg></button></label>
+</div>
+<div class="chips" role="group" aria-label="Category" style="margin-top: 4px">
+<a class="chip out" href="FilterSheet.dc.html"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"></path></svg>Filter <span class="n">2</span></a>
+<button class="chip" aria-pressed="false">All</button>
+<button class="chip" aria-pressed="false">Tops</button>
+<button class="chip" aria-pressed="false">Bottoms</button>
+<button class="chip on" aria-pressed="true">Dresses</button>
+<button class="chip" aria-pressed="false">Outerwear</button>
+</div>
+<div class="gut" style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 20px; padding-bottom: 24px">
+<div class="win" style="margin: 0 36px">
+<div class="win-bar"><span class="px">Search.exe</span><span class="win-btns"><span class="win-btn"></span></span></div>
+<div style="height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; position: relative">
+<svg viewBox="0 0 24 24" style="width: 48px; height: 48px" fill="none" stroke="#9b7bf0" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3M8 11h6"></path></svg>
+<span class="px mut">0 results</span>
+<svg class="spk" viewBox="0 0 24 24" style="right: 30px; top: 22px; width: 14px; height: 14px; fill: #ff8cc6" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+</div>
+</div>
+<div style="text-align: center; display: flex; flex-direction: column; gap: 6px">
+<h2 class="t-md">Nothing matches that</h2>
+<p class="mut">No dresses called “velvet” with your 2 filters. Loosen things up and look again.</p>
+</div>
+<div style="display: flex; justify-content: center"><button class="btn btn-s">Clear filters</button></div>
+</div>
+<div class="tabspace"></div>
+<div class="tabwrap"><dc-import name="TabBar" active="closet" hint-size="390px,90px"></dc-import></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

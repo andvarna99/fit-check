@@ -124,6 +124,11 @@ fit-check/
 - **No stack preferences.** The goal is a working, usable app; stack choices are optimized for that.
 - **Platform: PWA only.** Installed on iOS via Safari "Add to Home Screen"; no Apple Developer account, App Store review, or native build pipeline required. A native iOS app (Expo) is deferred; revisit only if the app becomes a public, multi-user product, since App Store distribution would also require multi-user support.
 
+- **UI design: Fit Check design system** (handoff in `design/handoff/`, mockups for every MVP view). Implemented as tokens in `app/styles/`, React components in `components/ui/`. Decisions on the handoff's open items:
+  - Login is **password only**; the mockup's email field is dropped (a visually hidden username field remains for iOS Keychain autofill).
+  - "Needs tags" badge is **pink** (as in the mockups), not the design system's yellow, keeping yellow to one element per screen.
+  - App icons use the mark full-bleed (square); iOS and Android apply their own rounded mask.
+
 ## Open questions
 
 None currently.

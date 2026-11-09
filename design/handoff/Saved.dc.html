@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Item saved</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr" style="background: linear-gradient(160deg,#ffd6ec 0%,#e3d6ff 38%,#d3eeff 70%,#d2f7e8 100%)">
+<div class="safe"></div>
+<div class="gut" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; text-align: center">
+<div style="position: relative">
+<div class="card" style="width: 230px; height: 230px; padding: 30px; border-radius: 28px; box-shadow: 0 12px 36px rgba(106,72,214,0.25)"><dc-import name="Garment" kind="jacket" color="#f4a7c4" hint-size="100%,100%"></dc-import></div>
+<svg class="spk" viewBox="0 0 24 24" style="right: -30px; top: -14px; width: 34px; height: 34px; fill: #ff8cc6" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+<svg class="spk" viewBox="0 0 24 24" style="right: -38px; top: 30px; width: 16px; height: 16px; fill: #ffffff" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+<svg class="spk" viewBox="0 0 24 24" style="left: -26px; bottom: 18px; width: 22px; height: 22px; fill: #cdbdfa" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+</div>
+<span class="badge b-clean" style="background: #ffffff">Item 49</span>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 class="t-lg">Saved to your closet</h1>
+<p style="color: #3e2685">Pink cropped jacket is ready for outfits.</p>
+</div>
+</div>
+<div class="gut" style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 42px; flex: none">
+<a class="btn btn-p btn-full" href="Capture.dc.html"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"></path></svg>Add another</a>
+<a class="btn btn-s btn-full" href="Closet.dc.html">View closet</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

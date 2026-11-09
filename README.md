@@ -4,6 +4,8 @@ Personal closet inventory and outfit picker, built as a mobile-first PWA.
 
 - Product plan and roadmap: [`docs/PLAN.md`](docs/PLAN.md)
 - UI design brief: [`docs/DESIGN_BRIEF.md`](docs/DESIGN_BRIEF.md)
+- Design handoff (mockups + design system): [`design/handoff/`](design/handoff/README.md). Serve the folder to view it: `npx serve design/handoff`
+- Component gallery: `/design-system` (development only)
 
 ## Stack
 
@@ -52,11 +54,17 @@ app/
   (app)/          authenticated screens with the tab bar (Today, Closet, Outfits, History, Settings)
   login/          sign-in page and auth Server Actions
   api/health/     database connectivity check
-  manifest.ts     PWA manifest; icons are generated in pwa-icon/, icon.tsx, apple-icon.tsx
-components/       shared UI
+  styles/         design tokens (tokens.css) and component styles (components.css)
+  manifest.ts     PWA manifest; icon.svg is the favicon, apple-icon.tsx and pwa-icon/ render PNGs
+components/
+  ui/             design system components (Button, Chip, ItemCard, DressUpSlot, BottomSheet, ...)
+  pwa/            service worker registration
+design/handoff/   design handoff from the UI design (reference only, not shipped)
 lib/
   auth/           password check, signed session cookies, requireSession()
   db/             Drizzle schema and client
+  pwa/            app icon artwork and PNG rendering
+  ui/             pure UI helpers (carousel index, match thresholds)
 drizzle/          generated SQL migrations (committed)
 proxy.ts          redirects unauthenticated requests to /login
 public/sw.js      service worker (offline fallback only; no data caching)

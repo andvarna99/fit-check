@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Quick-tag panel</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr-bar" aria-hidden="true"><span></span><p class="ttl">4 selected</p><span></span></header>
+<div class="gut grid3" aria-hidden="true" style="margin-top: 8px">
+<div class="card" style="box-shadow: 0 0 0 3px #6a48d6"><div class="ph" style="padding: 12px"><dc-import name="Garment" kind="shoe" color="#2b2b33" hint-size="100%,100%"></dc-import></div></div>
+<div class="card"><div class="ph" style="padding: 12px"><dc-import name="Garment" kind="skirt" color="#a8c3a0" hint-size="100%,100%"></dc-import></div></div>
+<div class="card" style="box-shadow: 0 0 0 3px #6a48d6"><div class="ph" style="padding: 12px"><dc-import name="Garment" kind="shoe" color="#c49a6c" hint-size="100%,100%"></dc-import></div></div>
+</div>
+<div class="scrim"></div>
+<section class="sheet" role="dialog" aria-modal="true" aria-labelledby="qtT" style="top: 118px; gap: 14px">
+<div class="grab"></div>
+<div class="between">
+<div><h2 id="qtT" class="t-md">Tag 4 items at once</h2><p class="cap">Only fields you touch change. The rest stay as they are.</p></div>
+<div style="display: flex">
+<span class="thumb" style="width: 36px; height: 36px; padding: 4px"><dc-import name="Garment" kind="shoe" color="#2b2b33" hint-size="100%,100%"></dc-import></span>
+<span class="thumb" style="width: 36px; height: 36px; padding: 4px; margin-left: -10px"><dc-import name="Garment" kind="shoe" color="#c49a6c" hint-size="100%,100%"></dc-import></span>
+<span class="thumb" style="width: 36px; height: 36px; padding: 4px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><span class="px" style="font-size: 11px">+2</span></span>
+</div>
+</div>
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 2px">Category</legend>
+<div style="display: flex; flex-wrap: wrap; gap: 0 8px">
+<button class="chip" aria-pressed="false">Top</button><button class="chip" aria-pressed="false">Bottom</button><button class="chip" aria-pressed="false">Dress</button><button class="chip" aria-pressed="false">Outerwear</button><button class="chip on" aria-pressed="true">Shoes</button><button class="chip" aria-pressed="false">Accessory</button>
+</div>
+</fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 2px">Colors <span class="opt">· adds to each item</span></legend>
+<div class="sws">
+<button class="sw" aria-label="Black" aria-pressed="false"><i style="background: #2b2b33"></i></button>
+<button class="sw" aria-label="White" aria-pressed="false"><i style="background: #ffffff"></i></button>
+<button class="sw on" aria-label="Brown" aria-pressed="true"><i style="background: #7a5240"></i></button>
+<button class="sw" aria-label="Camel" aria-pressed="false"><i style="background: #c49a6c"></i></button>
+<button class="sw" aria-label="Red" aria-pressed="false"><i style="background: #c8414b"></i></button>
+<button class="sw" aria-label="Pink" aria-pressed="false"><i style="background: #f4a7c4"></i></button>
+<button class="sw" aria-label="More colors" aria-pressed="false" style="color: #5e5478"><svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg></button>
+</div>
+</fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 2px">Seasons</legend>
+<div style="display: flex; gap: 8px"><button class="chip" aria-pressed="false">Spring</button><button class="chip" aria-pressed="false">Summer</button><button class="chip on" aria-pressed="true">Fall</button><button class="chip on" aria-pressed="true">Winter</button></div>
+</fieldset>
+<div class="grid2" style="gap: 12px">
+<fieldset style="border: 0; padding: 0; margin: 0"><legend class="lbl" style="padding: 0; margin-bottom: 6px">Formality</legend>
+<div class="seg" style="padding: 2px"><button style="font-size: 14px">1</button><button class="on" style="font-size: 14px">2</button><button style="font-size: 14px">3</button><button style="font-size: 14px">4</button><button style="font-size: 14px">5</button></div></fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0"><legend class="lbl" style="padding: 0; margin-bottom: 6px">Warmth</legend>
+<div class="seg" style="padding: 2px"><button style="font-size: 14px">1</button><button style="font-size: 14px">2</button><button class="on" style="font-size: 14px">3</button><button style="font-size: 14px">4</button><button style="font-size: 14px">5</button></div></fieldset>
+</div>
+<div class="field"><label for="qtg">Tags</label><input id="qtg" class="input" placeholder="Add a tag for all 4"></div>
+<div style="margin-top: auto; display: flex; gap: 12px">
+<a class="btn btn-s" href="Review.dc.html" style="flex: 1">Cancel</a>
+<a class="btn btn-p" href="Review.dc.html" style="flex: 1">Apply to 4</a>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -6,7 +6,12 @@ import { z } from "zod";
 import { checkPassword } from "@/lib/auth/password";
 import { endSession, startSession } from "@/lib/auth/server";
 
-export type LoginState = { error?: string };
+export type LoginState = {
+  /** Banner message. */
+  error?: string;
+  /** Message under the password field. */
+  fieldError?: string;
+};
 
 const loginSchema = z.object({
   password: z.string().min(1, "Enter your password."),
@@ -27,13 +32,16 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
     next: formData.get("next") ?? undefined,
   });
   if (!parsed.success) {
-    return { error: parsed.error.issues[0]?.message ?? "Invalid input." };
+    return { fieldError: parsed.error.issues[0]?.message ?? "Enter your password." };
   }
 
   if (!checkPassword(parsed.data.password)) {
     // Slow down repeated guessing.
     await new Promise((resolve) => setTimeout(resolve, 750));
-    return { error: "Incorrect password." };
+    return {
+      error: "That password didn't work. Try again.",
+      fieldError: "Check your password and sign in again.",
+    };
   }
 
   await startSession();

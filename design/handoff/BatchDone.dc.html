@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Batch complete</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr" style="background: linear-gradient(160deg,#ffd6ec 0%,#e3d6ff 38%,#d3eeff 70%,#d2f7e8 100%)">
+<div class="safe"></div>
+<div class="gut" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; text-align: center">
+<div style="position: relative; width: 250px; height: 170px">
+<div class="card" style="position: absolute; left: 0; top: 30px; width: 110px; height: 110px; padding: 14px; transform: rotate(-8deg)"><dc-import name="Garment" kind="dress" color="#c8414b" hint-size="100%,100%"></dc-import></div>
+<div class="card" style="position: absolute; right: 0; top: 30px; width: 110px; height: 110px; padding: 14px; transform: rotate(8deg)"><dc-import name="Garment" kind="shoe" color="#2b2b33" hint-size="100%,100%"></dc-import></div>
+<div class="card" style="position: absolute; left: 62px; top: 0; width: 126px; height: 126px; padding: 16px; box-shadow: 0 12px 30px rgba(106,72,214,0.25)"><dc-import name="Garment" kind="tee" color="#f2e8d5" hint-size="100%,100%"></dc-import></div>
+<svg class="spk" viewBox="0 0 24 24" style="right: 4px; top: -12px; width: 30px; height: 30px; fill: #ff8cc6" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+<svg class="spk" viewBox="0 0 24 24" style="left: 10px; top: 0; width: 16px; height: 16px; fill: #ffffff" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+<svg class="spk" viewBox="0 0 24 24" style="left: 120px; bottom: -6px; width: 18px; height: 18px; fill: #9b7bf0" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"></path></svg>
+</div>
+<h1 class="t-lg">Closet loaded!</h1>
+<div class="win" style="width: 100%">
+<div class="win-bar" style="background: #ffffff"><span class="px">Batch.exe · done</span><span class="win-btns"><span class="win-btn"></span></span></div>
+<div class="grid2" style="gap: 0">
+<div style="padding: 16px; border-right: 1px solid #e2d9f7"><p class="px-lg" style="font-size: 28px; line-height: 30px">24</p><p class="cap" style="margin-top: 6px; color: #241a3d">Items added</p></div>
+<div style="padding: 16px"><p class="px-lg" style="font-size: 28px; line-height: 30px; color: #a3206a">6</p><p class="cap" style="margin-top: 6px; color: #241a3d">Saved as drafts</p></div>
+</div>
+</div>
+<p style="color: #3e2685">Finish the drafts so they show up in outfits.</p>
+</div>
+<div class="gut" style="display: flex; flex-direction: column; gap: 12px; padding-bottom: 42px; flex: none">
+<a class="btn btn-p btn-full" href="Closet.dc.html">View closet</a>
+<a class="btn btn-s btn-full" href="Drafts.dc.html">Finish drafts</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

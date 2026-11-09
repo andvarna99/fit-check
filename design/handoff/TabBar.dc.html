@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tab bar</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<nav aria-label="Main" style="width: 390px; height: 90px; box-sizing: border-box; background: #ffffff; box-shadow: 0 -8px 32px rgba(36,26,61,0.16); border-radius: 24px 24px 0 0; display: flex; justify-content: space-around; align-items: flex-start; padding: 6px 8px 34px; font-family: 'DM Sans', system-ui, sans-serif">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+<a href="{{t.href}}" aria-current="{{t.cur}}" style="display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 72px; min-height: 48px; text-decoration: none; font-size: 11px; line-height: 13px; font-weight: 600; color: {{t.fg}}">
+<span style="width: 56px; height: 32px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #241a3d; background: {{t.bg}}">
+<sc-if value="{{t.today}}" hint-placeholder-val="{{false}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"></path></svg></sc-if>
+<sc-if value="{{t.closet}}" hint-placeholder-val="{{false}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg></sc-if>
+<sc-if value="{{t.outfits}}" hint-placeholder-val="{{false}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 10 5-10 5L2 7l10-5Z"></path><path d="m2 17 10 5 10-5M2 12l10 5 10-5"></path></svg></sc-if>
+<sc-if value="{{t.history}}" hint-placeholder-val="{{false}}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5M12 7v5l4 2"></path></svg></sc-if>
+</span>
+<span>{{t.label}}</span>
+</a>
+</sc-for>
+</nav>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["today","closet","outfits","history"],"default":"today"},"$preview":{"width":390,"height":90}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const a = this.props.active ?? 'today';
+    const defs = [
+      { k: 'today', label: 'Today', href: 'Main.dc.html' },
+      { k: 'closet', label: 'Closet', href: 'Closet.dc.html' },
+      { k: 'outfits', label: 'Outfits', href: 'Outfits.dc.html' },
+      { k: 'history', label: 'History', href: 'History.dc.html' }
+    ];
+    return {
+      tabs: defs.map((d) => ({
+        ...d,
+        today: d.k === 'today', closet: d.k === 'closet', outfits: d.k === 'outfits', history: d.k === 'history',
+        bg: d.k === a ? '#e3d6ff' : 'transparent',
+        fg: d.k === a ? '#3e2685' : '#5e5478',
+        cur: d.k === a ? 'page' : undefined
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,11 +1,12 @@
-import { PageShell } from "@/components/layout/page-shell";
+import { ScreenHeader } from "@/components/ui/screen-header";
 
 export const metadata = { title: "History" };
 
 export default function HistoryPage() {
   return (
-    <PageShell title="History">
-      <p className="text-neutral-600">Your wear log will appear here.</p>
-    </PageShell>
+    <>
+      <ScreenHeader title="History" />
+      <p className="gutter type-body text-ink-muted">Your wear log will appear here.</p>
+    </>
   );
 }

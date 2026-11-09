@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Batch processing</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr-bar">
+<span></span>
+<h1 class="ttl">Bulk upload</h1>
+<span></span>
+</header>
+<div class="gut" style="flex: 1; display: flex; flex-direction: column; gap: 16px; padding-top: 8px; min-height: 0">
+<section class="win" aria-label="Batch progress">
+<div class="win-bar"><span class="px">Batch.exe</span><span class="win-btns"><span class="win-btn"></span><span class="win-btn"></span></span></div>
+<div style="padding: 14px 12px; display: flex; flex-direction: column; gap: 8px" role="progressbar" aria-label="Removing backgrounds" aria-valuenow="12" aria-valuemin="0" aria-valuemax="30">
+<div class="between"><span class="px-lg">Removing bgs</span><span class="px-lg">12/30</span></div>
+<div class="prog"><i style="width: 40%"></i></div>
+<p class="cap">About 1 minute left. Keep the app open.</p>
+</div>
+</section>
+<div class="banner" role="alert" style="padding: 8px 8px 8px 14px">
+<svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4M12 16h.01"></path></svg>
+<span class="grow">Couldn't upload 1 photo.</span>
+<button class="btn btn-g btn-sm" style="color: #6b5400">Retry</button>
+</div>
+<div class="grid3" style="grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; flex: 1; min-height: 0; overflow: hidden; align-content: start">
+<sc-for list="{{cells}}" as="t" hint-placeholder-count="20">
+<div style="aspect-ratio: 1 / 1; border-radius: 10px; position: relative; padding: 8px; background: {{t.bg}}; box-shadow: {{t.ring}}">
+<sc-if value="{{t.done}}" hint-placeholder-val="{{false}}"><dc-import name="Garment" kind="{{t.k}}" color="{{t.c}}" hint-size="100%,100%"></dc-import><span style="position: absolute; right: 4px; bottom: 4px; width: 20px; height: 20px; border-radius: 999px; background: #8ee8c4; display: flex; align-items: center; justify-content: center"><svg class="i" viewBox="0 0 24 24" style="width: 12px; height: 12px; stroke-width: 3.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span></sc-if>
+<sc-if value="{{t.busy}}" hint-placeholder-val="{{false}}"><span class="px mut" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center">...</span></sc-if>
+<sc-if value="{{t.fail}}" hint-placeholder-val="{{false}}"><span class="px" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #b3261e; font-size: 11px">Failed</span></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+<div class="gut" style="display: flex; flex-direction: column; gap: 8px; padding: 12px 16px 42px; flex: none">
+<a class="btn btn-p btn-full" href="Review.dc.html">Start review</a>
+<p class="cap" style="text-align: center">Review the 12 that are ready. The rest keep processing.</p>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ks = [['tee', '#f2e8d5'], ['shoe', '#2b2b33'], ['pants', '#2f3e66'], ['dress', '#c8414b'], ['skirt', '#a8c3a0'], ['jacket', '#7a5240'], ['bag', '#2b2b33'], ['tee', '#c9b6f2'], ['shoe', '#c49a6c'], ['pants', '#9aa0a6'], ['tee', '#f4a7c4'], ['shoe', '#fafafa']];
+    const cells = [];
+    for (let i = 0; i < 20; i++) {
+      const done = i < 12, fail = i === 13, busy = !done && !fail;
+      const g = ks[i % ks.length];
+      cells.push({ k: g[0], c: g[1], done, busy, fail,
+        bg: done ? '#ffffff' : (fail ? '#fdecea' : '#f3eeff'),
+        ring: done ? 'inset 0 0 0 1px #e2d9f7' : (fail ? 'inset 0 0 0 1.5px #b3261e' : 'none') });
+    }
+    return { cells };
+  }
+}
+</script>
+</body>
+</html>

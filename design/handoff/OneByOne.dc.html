@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>One-by-one review</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr-bar">
+<a class="ib" href="Review.dc.html" aria-label="Back to review queue"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a>
+<h1 class="ttl"><span class="px-lg">7 / 30</span></h1>
+<button class="btn btn-g btn-sm" style="justify-self: end">Skip</button>
+</header>
+<div style="flex: none; position: relative; height: 232px; margin-top: 4px">
+<div class="card" aria-hidden="true" style="position: absolute; left: -150px; top: 20px; width: 180px; height: 192px; opacity: 0.5; padding: 24px"><dc-import name="Garment" kind="tee" color="#c9b6f2" hint-size="100%,100%"></dc-import></div>
+<div class="card" style="position: absolute; left: 50%; margin-left: -118px; top: 0; width: 236px; height: 232px; padding: 26px"><dc-import name="Garment" kind="skirt" color="#a8c3a0" hint-size="100%,100%"></dc-import><span class="badge b-tags" style="position: absolute; left: 10px; top: 10px">Needs tags</span></div>
+<div class="card" aria-hidden="true" style="position: absolute; right: -150px; top: 20px; width: 180px; height: 192px; opacity: 0.5; padding: 24px"><dc-import name="Garment" kind="shoe" color="#c49a6c" hint-size="100%,100%"></dc-import></div>
+</div>
+<form class="gut stack" style="gap: 12px; margin-top: 16px; flex: 1; min-height: 0; overflow: hidden">
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 2px">Category <span class="opt" style="color: #a3206a">· required</span></legend>
+<div style="display: flex; gap: 8px; overflow: hidden">
+<button type="button" class="chip" aria-pressed="false">Top</button><button type="button" class="chip on" aria-pressed="true">Bottom</button><button type="button" class="chip" aria-pressed="false">Dress</button><button type="button" class="chip" aria-pressed="false">Outerwear</button><button type="button" class="chip" aria-pressed="false">Shoes</button>
+</div>
+</fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 2px">Colors</legend>
+<div class="sws" style="flex-wrap: nowrap; overflow: hidden">
+<button type="button" class="sw" aria-label="Black" aria-pressed="false"><i style="background: #2b2b33"></i></button>
+<button type="button" class="sw" aria-label="Cream" aria-pressed="false"><i style="background: #f2e8d5"></i></button>
+<button type="button" class="sw on" aria-label="Green" aria-pressed="true"><i style="background: #a8c3a0"></i></button>
+<button type="button" class="sw" aria-label="Navy" aria-pressed="false"><i style="background: #2f3e66"></i></button>
+<button type="button" class="sw" aria-label="Blue" aria-pressed="false"><i style="background: #6d8fb8"></i></button>
+<button type="button" class="sw" aria-label="Pink" aria-pressed="false"><i style="background: #f4a7c4"></i></button>
+<button type="button" class="sw" aria-label="Yellow" aria-pressed="false"><i style="background: #f3d36b"></i></button>
+</div>
+</fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 2px">Seasons</legend>
+<div style="display: flex; gap: 8px"><button type="button" class="chip on" aria-pressed="true">Spring</button><button type="button" class="chip on" aria-pressed="true">Summer</button><button type="button" class="chip" aria-pressed="false">Fall</button><button type="button" class="chip" aria-pressed="false">Winter</button></div>
+</fieldset>
+<div class="grid2" style="gap: 12px">
+<fieldset style="border: 0; padding: 0; margin: 0"><legend class="lbl" style="padding: 0; margin-bottom: 6px">Formality</legend>
+<div class="seg" style="padding: 2px"><button type="button" style="font-size: 14px">1</button><button type="button" class="on" style="font-size: 14px">2</button><button type="button" style="font-size: 14px">3</button><button type="button" style="font-size: 14px">4</button><button type="button" style="font-size: 14px">5</button></div></fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0"><legend class="lbl" style="padding: 0; margin-bottom: 6px">Warmth</legend>
+<div class="seg" style="padding: 2px"><button type="button" style="font-size: 14px">1</button><button type="button" class="on" style="font-size: 14px">2</button><button type="button" style="font-size: 14px">3</button><button type="button" style="font-size: 14px">4</button><button type="button" style="font-size: 14px">5</button></div></fieldset>
+</div>
+<a class="link" href="ItemForm.dc.html" style="display: inline-flex; align-items: center; gap: 4px; min-height: 44px">More details<svg class="i s16" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></a>
+</form>
+<div style="background: #ffffff; box-shadow: 0 -8px 32px rgba(36,26,61,0.16); border-radius: 24px 24px 0 0; padding: 14px 16px 34px; display: flex; gap: 12px; flex: none">
+<button class="ib big" aria-label="Previous item"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
+<button class="btn btn-p grow">Next<svg class="i s20" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

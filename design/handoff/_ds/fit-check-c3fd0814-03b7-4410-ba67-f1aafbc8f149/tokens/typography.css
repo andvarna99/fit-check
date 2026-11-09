@@ -1,0 +1,31 @@
+/* Fit Check · Type families, scale and helper classes. Generated from tokens.json. */
+:root {
+  --font-display: Fraunces, "Iowan Old Style", Georgia, serif;
+  --font-sans: "DM Sans", -apple-system, "SF Pro Text", system-ui, sans-serif;
+  --font-pixel: Silkscreen, "Courier New", monospace;
+  --display-xl-size: 44px; --display-xl-line: 46px; --display-xl-weight: 600;
+  --title-lg-size: 30px; --title-lg-line: 34px; --title-lg-weight: 600;
+  --title-md-size: 22px; --title-md-line: 28px; --title-md-weight: 600;
+  --title-sm-size: 18px; --title-sm-line: 24px; --title-sm-weight: 600;
+  --body-size: 16px; --body-line: 24px; --body-weight: 400;
+  --body-strong-size: 16px; --body-strong-line: 24px; --body-strong-weight: 600;
+  --callout-size: 15px; --callout-line: 20px; --callout-weight: 500;
+  --caption-size: 13px; --caption-line: 18px; --caption-weight: 400;
+  --tab-size: 11px; --tab-line: 13px; --tab-weight: 600;
+  --pixel-lg-size: 16px; --pixel-lg-line: 16px; --pixel-lg-weight: 400;
+  --button-size: 16px; --button-line: 20px; --button-weight: 700;
+  --pixel-sm-size: 12px; --pixel-sm-line: 16px; --pixel-sm-weight: 400;
+}
+
+.type-display-xl { font-family: var(--font-display); font-size: var(--display-xl-size); line-height: var(--display-xl-line); font-weight: var(--display-xl-weight); font-style: italic; letter-spacing: -0.02em; } /* Wordmark on splash and login only. */
+.type-title-lg { font-family: var(--font-display); font-size: var(--title-lg-size); line-height: var(--title-lg-line); font-weight: var(--title-lg-weight); font-style: italic; letter-spacing: -0.02em; } /* Screen titles in the header (Today greeting, Closet, Outfits, History). */
+.type-title-md { font-family: var(--font-display); font-size: var(--title-md-size); line-height: var(--title-md-line); font-weight: var(--title-md-weight); font-style: italic; letter-spacing: -0.01em; } /* Sheet titles, item names on detail, empty-state headlines. */
+.type-title-sm { font-family: var(--font-display); font-size: var(--title-sm-size); line-height: var(--title-sm-line); font-weight: var(--title-sm-weight); font-style: italic; } /* Section headers and the date line under the greeting. */
+.type-body { font-family: var(--font-sans); font-size: var(--body-size); line-height: var(--body-line); font-weight: var(--body-weight); } /* Body copy and every text input (16px stops iOS zooming on focus). */
+.type-body-strong { font-family: var(--font-sans); font-size: var(--body-strong-size); line-height: var(--body-strong-line); font-weight: var(--body-strong-weight); } /* Item names in lists, form labels. */
+.type-callout { font-family: var(--font-sans); font-size: var(--callout-size); line-height: var(--callout-line); font-weight: var(--callout-weight); } /* Toasts, banners, chip labels. */
+.type-caption { font-family: var(--font-sans); font-size: var(--caption-size); line-height: var(--caption-line); font-weight: var(--caption-weight); } /* Metadata under cards and stats. */
+.type-tab { font-family: var(--font-sans); font-size: var(--tab-size); line-height: var(--tab-line); font-weight: var(--tab-weight); } /* Tab bar labels only, always under an icon. */
+.type-pixel-lg { font-family: var(--font-pixel); font-size: var(--pixel-lg-size); line-height: var(--pixel-lg-line); font-weight: var(--pixel-lg-weight); letter-spacing: 0.04em; text-transform: uppercase; } /* The match badge and loader headline. Uppercase. */
+.type-button { font-family: var(--font-pixel); font-size: var(--button-size); line-height: var(--button-line); font-weight: var(--button-weight); letter-spacing: 0.04em; text-transform: uppercase; } /* Every button label, uppercase. Write the label in sentence case and uppercase it in CSS so screen readers read words, not letters. */
+.type-pixel-sm { font-family: var(--font-pixel); font-size: var(--pixel-sm-size); line-height: var(--pixel-sm-line); font-weight: var(--pixel-sm-weight); letter-spacing: 0.06em; text-transform: uppercase; } /* Badges and small system labels: status badges (Clean, Laundry, Stored, Needs tags), count bubbles, window titles, LOCKED, counters like 12/30, LOADING.... Uppercase, never body text. */

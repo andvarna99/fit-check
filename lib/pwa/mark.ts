@@ -1,0 +1,20 @@
+/**
+ * App icon artwork from design/handoff/assets/mark.svg (180×180).
+ * `cornerRadius` 0 gives a full-bleed square for iOS/Android icons, which apply
+ * their own mask (rounded artwork would leave dark corners inside the mask).
+ */
+export function markSvg(cornerRadius = 40): string {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs><linearGradient id="holo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd6ec"/><stop offset=".34" stop-color="#e3d6ff"/><stop offset=".66" stop-color="#d3eeff"/><stop offset="1" stop-color="#d2f7e8"/></linearGradient></defs>
+  <rect width="180" height="180" rx="${cornerRadius}" fill="url(#holo)"/>
+  <rect x="31" y="34" width="118" height="112" rx="10" fill="#fff" stroke="#241a3d" stroke-width="2"/>
+  <path d="M31 44a10 10 0 0 1 10-10h98a10 10 0 0 1 10 10v12H31Z" fill="#9b7bf0" stroke="#241a3d" stroke-width="2"/>
+  <rect x="117" y="40" width="10" height="10" rx="2" fill="#fff" stroke="#241a3d" stroke-width="1.5"/>
+  <rect x="131" y="40" width="10" height="10" rx="2" fill="#fff" stroke="#241a3d" stroke-width="1.5"/>
+  <g transform="translate(54 65) scale(3)" fill="none" stroke="#6a48d6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 6a2 2 0 1 1 2 2c-1 0-2 .7-2 2v1"/><path d="M12 11 3 17.5a1 1 0 0 0 .6 1.8h16.8a1 1 0 0 0 .6-1.8Z"/>
+  </g>
+  <path d="M148 16c1 7 4 10 11 11-7 1-10 4-11 11-1-7-4-10-11-11 7-1 10-4 11-11Z" fill="#ff8cc6"/>
+  <path d="M28 142c.6 4 2.4 5.6 6 6-3.6.4-5.4 2-6 6-.6-4-2.4-5.6-6-6 3.6-.4 5.4-2 6-6Z" fill="#fff"/>
+</svg>`;
+}

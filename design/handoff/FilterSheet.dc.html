@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Filter sheet</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr" aria-hidden="true"><p class="t-lg">Closet</p></header>
+<div class="tabwrap"><dc-import name="TabBar" active="closet" hint-size="390px,90px"></dc-import></div>
+<div class="scrim"></div>
+<section class="sheet" role="dialog" aria-modal="true" aria-labelledby="fsT" style="gap: 14px; top: 92px">
+<div class="grab"></div>
+<div class="between"><h2 id="fsT" class="t-md">Filter your closet</h2><button class="btn btn-g btn-sm" style="margin-right: -12px">Clear all</button></div>
+<fieldset style="border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px">
+<legend class="lbl" style="padding: 0; margin-bottom: 4px">Color <span class="opt">· 2 selected</span></legend>
+<div class="sws">
+<sc-for list="{{colors}}" as="c" hint-placeholder-count="14">
+<button class="{{c.cls}}" aria-label="{{c.n}}" aria-pressed="{{c.on}}"><i style="background: {{c.v}}"></i></button>
+</sc-for>
+</div>
+</fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 4px">Season</legend>
+<div style="display: flex; gap: 8px">
+<button class="chip" aria-pressed="false">Spring</button>
+<button class="chip" aria-pressed="false">Summer</button>
+<button class="chip on" aria-pressed="true">Fall</button>
+<button class="chip" aria-pressed="false">Winter</button>
+</div>
+</fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 6px">Formality <span class="opt">· 1 casual to 5 formal</span></legend>
+<div class="seg"><button>1</button><button class="on" aria-pressed="true">2</button><button class="on" aria-pressed="true">3</button><button>4</button><button>5</button></div>
+</fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 6px">Warmth <span class="opt">· 1 light to 5 toasty</span></legend>
+<div class="seg"><button>1</button><button>2</button><button>3</button><button>4</button><button>5</button></div>
+</fieldset>
+<fieldset style="border: 0; padding: 0; margin: 0">
+<legend class="lbl" style="padding: 0; margin-bottom: 4px">Status</legend>
+<div style="display: flex; gap: 8px">
+<button class="chip on" aria-pressed="true">Clean</button>
+<button class="chip" aria-pressed="false">Laundry</button>
+<button class="chip" aria-pressed="false">Stored</button>
+</div>
+</fieldset>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 6px">
+<a class="btn btn-p btn-full" href="Closet.dc.html">Show 14 items</a>
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const list = [
+      ['Black', '#2b2b33'], ['White', '#ffffff'], ['Cream', '#f2e8d5'], ['Gray', '#9aa0a6'], ['Brown', '#7a5240'], ['Camel', '#c49a6c'], ['Red', '#c8414b'],
+      ['Pink', '#f4a7c4'], ['Lavender', '#c9b6f2'], ['Blue', '#6d8fb8'], ['Navy', '#2f3e66'], ['Green', '#a8c3a0'], ['Yellow', '#f3d36b'], ['Multi', 'conic-gradient(#f4a7c4,#f3d36b,#a8c3a0,#6d8fb8,#c9b6f2,#f4a7c4)']
+    ];
+    const on = ['Cream', 'Blue'];
+    return { colors: list.map(([n, v]) => ({ n, v, on: on.includes(n) ? 'true' : 'false', cls: on.includes(n) ? 'sw on' : 'sw' })) };
+  }
+}
+</script>
+</body>
+</html>

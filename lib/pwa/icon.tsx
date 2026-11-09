@@ -1,26 +1,13 @@
+/* eslint-disable @next/next/no-img-element -- ImageResponse renders plain <img> */
 import { ImageResponse } from "next/og";
 
-/** Placeholder app icon until the designed icon is ready. */
+import { markSvg } from "./mark";
+
+/** Full-bleed square PNG of the app mark, for apple-touch and manifest icons. */
 export function renderAppIcon(size: number): ImageResponse {
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "linear-gradient(135deg, #f9a8d4 0%, #c4b5fd 50%, #93c5fd 100%)",
-          color: "#ffffff",
-          fontSize: size * 0.42,
-          fontWeight: 800,
-          letterSpacing: -size * 0.02,
-        }}
-      >
-        FC
-      </div>
-    ),
-    { width: size, height: size },
-  );
+  const src = `data:image/svg+xml;base64,${Buffer.from(markSvg(0)).toString("base64")}`;
+  return new ImageResponse(<img src={src} width={size} height={size} alt="" />, {
+    width: size,
+    height: size,
+  });
 }

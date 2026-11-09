@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wear history</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr"><div class="row" style="align-items: baseline; gap: 10px"><h1 class="t-lg">History</h1><span class="cap">38 days logged</span></div></header>
+<div class="gut" style="flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: 20px; padding-top: 4px">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
+<section style="display: flex; flex-direction: column; gap: 8px">
+<h2 class="t-sm">{{g.h}}</h2>
+<ul class="group">
+<sc-for list="{{g.rows}}" as="r" hint-placeholder-count="3">
+<li style="border-top: 1px solid #e2d9f7"><a href="WearEntry.dc.html" style="display: flex; gap: 12px; align-items: center; padding: 10px 12px; text-decoration: none; color: inherit; min-height: 84px">
+<span style="width: 64px; height: 64px; border-radius: 10px; overflow: hidden; flex: none; box-shadow: inset 0 0 0 1px #e2d9f7" class="collage">
+<sc-for list="{{r.g}}" as="x" hint-placeholder-count="4"><span style="background: #fff; padding: 4px; display: block"><dc-import name="Garment" kind="{{x.k}}" color="{{x.c}}" hint-size="100%,100%"></dc-import></span></sc-for>
+</span>
+<span class="grow" style="display: flex; flex-direction: column; gap: 2px">
+<span class="between"><span class="strong">{{r.d}}</span><span class="px" style="color: #a3206a">{{r.rate}}</span></span>
+<span class="cap" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.items}}</span>
+<span class="cap" style="color: #1f5f8f">{{r.wx}}</span>
+</span>
+</a></li>
+</sc-for>
+</ul>
+</section>
+</sc-for>
+</div>
+<div class="tabspace"></div>
+<div class="tabwrap"><dc-import name="TabBar" active="history" hint-size="390px,90px"></dc-import></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const g = (k, c) => ({ k, c });
+    return {
+      groups: [
+        { h: 'This week', rows: [
+          { d: 'Today · Mon, Nov 9', items: 'Cream knit tee, wide-leg jeans, white sneakers', wx: '64° partly cloudy', rate: '4/5', g: [g('tee', '#f2e8d5'), g('pants', '#6d8fb8'), g('shoe', '#fafafa'), g('bag', '#c9b6f2')] },
+          { d: 'Sat, Nov 7', items: 'Lilac slip dress, navy jacket, black boots', wx: '58° light rain', rate: '5/5', g: [g('dress', '#c9b6f2'), g('jacket', '#2f3e66'), g('shoe', '#2b2b33'), g('bag', '#f2e8d5')] },
+          { d: 'Thu, Nov 5', items: 'Pink cropped jacket, black tee, jeans', wx: '61° sunny', rate: 'No rating', g: [g('jacket', '#f4a7c4'), g('tee', '#2b2b33'), g('pants', '#6d8fb8'), g('shoe', '#fafafa')] }
+        ] },
+        { h: 'Last week', rows: [
+          { d: 'Fri, Oct 30', items: 'Cream tee, plaid mini, brown loafers', wx: '70° sunny', rate: '3/5', g: [g('tee', '#f2e8d5'), g('skirt', '#f3d36b'), g('shoe', '#7a5240'), g('bag', '#7a5240')] },
+          { d: 'Wed, Oct 28', items: 'Pink cropped jacket, gray tee, black trousers', wx: '55° windy', rate: '4/5', g: [g('jacket', '#f4a7c4'), g('tee', '#9aa0a6'), g('pants', '#2b2b33'), g('shoe', '#2b2b33')] }
+        ] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* Fit Check · Color and gradient tokens (light theme). Generated from tokens.json. */
+:root {
+  --surface-000: #ffffff; /* Cards, sheets, inputs and every surface a clothing photo sits on. */
+  --surface-050: #fbf9ff; /* Page background: a near-white lilac so the app reads lavender without tinting photos. */
+  --surface-100: #f3eeff; /* Sunken areas: unselected chips, search field, segmented control track. */
+  --surface-200: #e7deff; /* Pressed states and slider tracks. */
+  --ink: #241a3d; /* Primary text and icons on every surface, mint-400, yellow-400 and lavender-100 through 500 (11:1 or better on light grounds; 5:1 on lavender-500). */
+  --ink-muted: #5e5478; /* Secondary text: counts, dates, helper text, placeholders, on surface-000 through surface-200 and chrome-100 (5.4:1 or better). */
+  --line: #e2d9f7; /* Decorative hairlines and card outlines that carry no meaning. */
+  --line-strong: #8c7fb0; /* Input and control borders (3.5:1 on surface-050 and surface-000). */
+  --lavender-100: #e3d6ff; /* Selected chip fill, active tab pill, tinted panels. */
+  --lavender-300: #cdbdfa; /* Decorative lavender: illustration fills, sparkles, slot dividers. */
+  --lavender-500: #9b7bf0; /* The brand lavender for blocks and large marks; ink text only on it (5:1), never white. */
+  --lavender-700: #6a48d6; /* Primary button fill and links; white text on it (6:1). Text on surface-050 (5.7:1). */
+  --lavender-900: #3e2685; /* Text on lavender-100 (8.4:1), the focus ring, and selected chip labels. */
+  --pink-200: #ffd6ec; /* Baby-pink tints: holo stop, rating stars, celebratory backgrounds. */
+  --pink-400: #ff8cc6; /* Bubblegum accent for sparkles and illustration. Not a text color. */
+  --pink-700: #a3206a; /* Pink text on pink-200 and surface-000 (5.4:1 or better), e.g. Saved badge. */
+  --blue-200: #d3eeff; /* Laundry status badge fill; weather card tint. */
+  --blue-400: #8fd3ff; /* Baby-blue accent for illustration and the holo gradient. */
+  --blue-700: #1f5f8f; /* Text on blue-200 (5.6:1): the Laundry badge label. */
+  --mint-200: #d2f7e8; /* Success toast fill; Clean status badge. */
+  --mint-400: #8ee8c4; /* The MATCH! badge fill, always with ink text. */
+  --mint-700: #14684a; /* Text on mint-200 (5.9:1): success toast, Clean badge. */
+  --yellow-100: #fff1bf; /* Offline banner and warning fill. */
+  --yellow-400: #ffd23f; /* Plaid-yellow pop: the CLASH badge and plaid textures, always with ink text. At most one yellow moment per screen. */
+  --yellow-800: #6b5400; /* Text on yellow-100 (6.4:1): offline and warning banners. */
+  --chrome-100: #f4f4f8; /* Chrome highlight; Stored status badge fill with ink-muted text. */
+  --chrome-300: #c9cad6; /* Chrome midtone for bevels, window buttons and the locked-slot frame. */
+  --chrome-600: #7a7c8e; /* Chrome shadow edge on bevels (decorative). */
+  --primary: var(--lavender-700); /* The one main action per view: Wear this, Save, Apply, Sign in. */
+  --on-primary: #ffffff; /* Text and icons on primary and on the jelly gradient (4.6:1 at its lightest stop). */
+  --danger: #b3261e; /* Delete actions and error text on surface-000 (6.5:1). */
+  --on-danger: #ffffff; /* Text on a danger fill. */
+  --focus: var(--lavender-900); /* 2px focus ring, 2px offset, on every interactive element (11:1 on surface-000). */
+  --scrim: rgba(36, 26, 61, 0.45); /* Backdrop behind bottom sheets and dialogs. */
+
+  /* Gradients */
+  --grad-holo: linear-gradient(115deg, #ffd6ec 0%, #e3d6ff 34%, #d3eeff 66%, #d2f7e8 100%);
+  --grad-jelly: linear-gradient(180deg, #7d5ce6 0%, #6a48d6 55%, #5a3bc4 100%);
+  --grad-chrome: linear-gradient(180deg, #ffffff 0%, #dcdde6 46%, #a9abbd 54%, #f4f4f8 100%);
+}

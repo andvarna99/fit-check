@@ -1,0 +1,10 @@
+/* Fit Check · Spacing scale. Generated from tokens.json. */
+:root {
+  --space-1: 4px; /* Icon-to-label gap, badge padding. */
+  --space-2: 8px; /* Chip gaps, 3-column grid gap. */
+  --space-3: 12px; /* 2-column grid gap, card padding. */
+  --space-4: 16px; /* Screen side gutter and default stack gap. */
+  --space-5: 24px; /* Between sections on a screen. */
+  --space-6: 32px; /* Above empty-state illustrations; sheet top padding. */
+  --space-7: 48px; /* Splash and celebratory screens. */
+}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Today, loading</title>
+<script src="support.js"></script>
+<link rel="stylesheet" href="./fc.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&amp;family=Fraunces:ital,opsz,wght,SOFT@0,9..144,500..700,100;1,9..144,500..700,100&amp;family=Silkscreen:wght@400;700&amp;display=swap">
+<style>body{margin:0}</style>
+</helmet>
+<div class="scr">
+<div class="safe"></div>
+<header class="hdr" style="min-height: 60px; align-items: flex-start">
+<div><h1 class="t-lg">Good morning</h1><p class="t-sm mut">Monday, November 9</p></div>
+<a class="ib fill" href="Settings.dc.html" aria-label="Settings"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg></a>
+</header>
+<div class="gut" style="margin-top: 8px; flex: none">
+<div class="banner" role="status" style="height: 60px; border-radius: 28px; padding: 0 8px 0 18px">
+<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2l20 20M5.8 8.6A5 5 0 0 0 7 18h9.6M20.5 16.6A4 4 0 0 0 17.5 10h-1.3A8 8 0 0 0 9.4 4.2"></path></svg>
+<span class="grow">Weather's unavailable. Picks skip temperature.</span>
+<button class="btn btn-g btn-sm" style="color: #6b5400">Retry</button>
+</div>
+</div>
+<div class="chips" role="group" aria-label="Occasion" style="margin-top: 6px">
+<button class="chip on" aria-pressed="true">Casual</button>
+<button class="chip" aria-pressed="false">Smart casual</button>
+<button class="chip" aria-pressed="false">Formal</button>
+</div>
+<section class="win" aria-label="Suggested outfit, loading" aria-busy="true" style="margin: 6px 16px 0; flex: 1; min-height: 0; display: flex; flex-direction: column">
+<div class="win-bar"><span class="px">Dress-up.exe</span><span class="win-btns"><span class="win-btn"></span><span class="win-btn"></span></span></div>
+<div style="padding: 14px 12px 6px; display: flex; flex-direction: column; gap: 8px" role="progressbar" aria-label="Styling your outfit" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+<div class="between"><span class="px-lg">Styling...</span><span class="px mut">40%</span></div>
+<div class="prog"><i style="width: 40%"></i></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 8px">
+<div style="height: 44px; border-radius: 16px; background: #f3eeff"></div>
+<div style="height: 76px; border-radius: 16px; background: #f3eeff; display: flex; align-items: center; justify-content: center"><div style="width: 64px; height: 56px; border-radius: 10px; background: #e7deff"></div></div>
+<div style="height: 76px; border-radius: 16px; background: #f3eeff; display: flex; align-items: center; justify-content: center"><div style="width: 64px; height: 56px; border-radius: 10px; background: #e7deff"></div></div>
+<div style="height: 64px; border-radius: 16px; background: #f3eeff; display: flex; align-items: center; justify-content: center"><div style="width: 64px; height: 44px; border-radius: 10px; background: #e7deff"></div></div>
+<div style="height: 44px; border-radius: 16px; background: #f3eeff"></div>
+</div>
+</section>
+<div class="gut" style="display: flex; gap: 12px; margin-top: 12px; margin-bottom: 12px; flex: none">
+<button class="ib big" disabled aria-label="Shuffle unlocked slots" style="opacity: 0.45"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg></button>
+<button class="btn btn-dis grow" disabled>Wear this</button>
+<button class="ib big" disabled aria-label="Save outfit" style="opacity: 0.45"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path></svg></button>
+</div>
+<div class="tabspace"></div>
+<div class="tabwrap"><dc-import name="TabBar" active="today" hint-size="390px,90px"></dc-import></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

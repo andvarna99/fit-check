@@ -1,0 +1,127 @@
+/*
+ * Fit Check design tokens.
+ * Source: design/handoff/_ds/fit-check-<id>/tokens/. Values are identical;
+ * font families point at the self-hosted next/font variables set in app/layout.tsx.
+ * Light theme only.
+ */
+:root {
+  /* ---------- Color ---------- */
+  --surface-000: #ffffff; /* cards, sheets, inputs, anything a clothing photo sits on */
+  --surface-050: #fbf9ff; /* page background */
+  --surface-100: #f3eeff; /* sunken: unselected chips, search, segmented track */
+  --surface-200: #e7deff; /* pressed states, slider tracks */
+  --ink: #241a3d;
+  --ink-muted: #5e5478;
+  --line: #e2d9f7;
+  --line-strong: #8c7fb0;
+  --lavender-100: #e3d6ff;
+  --lavender-300: #cdbdfa;
+  --lavender-500: #9b7bf0;
+  --lavender-700: #6a48d6;
+  --lavender-900: #3e2685;
+  --pink-200: #ffd6ec;
+  --pink-400: #ff8cc6;
+  --pink-700: #a3206a;
+  --blue-200: #d3eeff;
+  --blue-400: #8fd3ff;
+  --blue-700: #1f5f8f;
+  --mint-200: #d2f7e8;
+  --mint-400: #8ee8c4;
+  --mint-700: #14684a;
+  --yellow-100: #fff1bf;
+  --yellow-400: #ffd23f; /* at most one yellow moment per screen */
+  --yellow-800: #6b5400;
+  --chrome-100: #f4f4f8;
+  --chrome-300: #c9cad6;
+  --chrome-600: #7a7c8e;
+  --danger-100: #fdecea; /* error banner fill (from the LoginError mockup) */
+  --primary: var(--lavender-700);
+  --on-primary: #ffffff;
+  --danger: #b3261e;
+  --on-danger: #ffffff;
+  --focus: var(--lavender-900);
+  --scrim: rgba(36, 26, 61, 0.45);
+
+  --grad-holo: linear-gradient(115deg, #ffd6ec 0%, #e3d6ff 34%, #d3eeff 66%, #d2f7e8 100%);
+  --grad-holo-hero: linear-gradient(160deg, #ffd6ec 0%, #e3d6ff 38%, #d3eeff 70%, #d2f7e8 100%);
+  --grad-jelly: linear-gradient(180deg, #7d5ce6 0%, #6a48d6 55%, #5a3bc4 100%);
+  --grad-chrome: linear-gradient(180deg, #ffffff 0%, #dcdde6 46%, #a9abbd 54%, #f4f4f8 100%);
+
+  /* ---------- Type ---------- */
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-dm-sans), -apple-system, "SF Pro Text", system-ui, sans-serif;
+  --font-pixel: var(--font-silkscreen), "Courier New", monospace;
+
+  /* ---------- Spacing ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px; /* screen gutter, default stack gap */
+  --space-5: 24px; /* between sections */
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* ---------- Radius ---------- */
+  --radius-window: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  /* ---------- Sizes ---------- */
+  --tap-min: 44px;
+  --button-h: 52px;
+  --chip-h: 36px;
+  --tabbar-h: 56px;
+  --icon: 24px;
+
+  /* ---------- Shadows ---------- */
+  --shadow-card: 0 1px 2px rgba(36, 26, 61, 0.06), 0 6px 16px rgba(36, 26, 61, 0.07);
+  --shadow-sheet: 0 -8px 32px rgba(36, 26, 61, 0.16);
+  --shadow-dialog: 0 12px 40px rgba(36, 26, 61, 0.25);
+  --shadow-jelly: inset 0 2px 0 rgba(255, 255, 255, 0.55), inset 0 -3px 0 rgba(36, 26, 61, 0.22),
+    0 6px 14px rgba(106, 72, 214, 0.35);
+  --shadow-bevel: inset 1px 1px 0 #ffffff, inset -1px -1px 0 #7a7c8e;
+  --shadow-glow: 0 0 0 3px rgba(142, 232, 196, 0.45), 0 0 20px rgba(142, 232, 196, 0.9);
+
+  /* ---------- Safe areas (iOS PWA, full-bleed) ---------- */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* ---------- Motion ---------- */
+  --dur-press: 160ms;
+  --dur-sheet: 240ms;
+  --dur-pop: 320ms;
+  --stagger-shuffle: 60ms;
+  --ease-out: ease-out;
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-pop: 0ms;
+    --stagger-shuffle: 0ms;
+  }
+}
+
+/* ---------- Type helpers ---------- */
+.type-display-xl,
+.type-title-lg,
+.type-title-md,
+.type-title-sm {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100;
+}
+.type-display-xl { font-size: 44px; line-height: 46px; letter-spacing: -0.02em; } /* wordmark: splash + login only */
+.type-title-lg { font-size: 30px; line-height: 34px; letter-spacing: -0.02em; } /* screen titles */
+.type-title-md { font-size: 22px; line-height: 28px; letter-spacing: -0.01em; } /* sheet titles, item names, empty states */
+.type-title-sm { font-size: 18px; line-height: 24px; } /* section headers */
+.type-body { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 400; }
+.type-body-strong { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 600; }
+.type-callout { font-family: var(--font-sans); font-size: 15px; line-height: 20px; font-weight: 500; }
+.type-caption { font-family: var(--font-sans); font-size: 13px; line-height: 18px; font-weight: 400; color: var(--ink-muted); }
+.type-pixel-lg { font-family: var(--font-pixel); font-size: 16px; line-height: 16px; letter-spacing: 0.04em; text-transform: uppercase; }
+/* Badges and small system labels. Write in sentence case; CSS uppercases so screen readers read words. */
+.type-pixel-sm { font-family: var(--font-pixel); font-size: 12px; line-height: 16px; letter-spacing: 0.06em; text-transform: uppercase; }

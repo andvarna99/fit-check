@@ -1,18 +1,20 @@
 import Link from "next/link";
 
-import { PageShell } from "@/components/layout/page-shell";
+import { Icon } from "@/components/ui/icon";
+import { ScreenHeader } from "@/components/ui/screen-header";
 
 export default function TodayPage() {
   return (
-    <PageShell
-      title="Today"
-      actions={
-        <Link href="/settings" className="min-h-11 content-center text-sm text-neutral-600">
-          Settings
-        </Link>
-      }
-    >
-      <p className="text-neutral-600">Weather and outfit suggestions will appear here.</p>
-    </PageShell>
+    <>
+      <ScreenHeader
+        title="Today"
+        actions={
+          <Link href="/settings" className="fc-iconbtn fc-iconbtn--tonal" aria-label="Settings">
+            <Icon name="settings" />
+          </Link>
+        }
+      />
+      <p className="gutter type-body text-ink-muted">Weather and outfit suggestions will appear here.</p>
+    </>
   );
 }
