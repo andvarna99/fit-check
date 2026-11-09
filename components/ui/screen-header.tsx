@@ -24,7 +24,8 @@ export function ScreenHeader({ title, meta, actions, className }: ScreenHeaderPr
 }
 
 type BarHeaderProps = {
-  title: string;
+  /** Text, or a styled node such as a "7 / 30" counter. */
+  title: ReactNode;
   start?: ReactNode;
   end?: ReactNode;
   className?: string;

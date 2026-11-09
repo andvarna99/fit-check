@@ -13,6 +13,8 @@ type ItemCardProps = {
   src?: string | null;
   status?: ItemStatus;
   draft?: boolean;
+  /** Bulk review: item has its tags (category) and is ready for the closet. */
+  tagged?: boolean;
   /** Multi-select mode: shows a checkbox and uses aria-pressed. */
   selectable?: boolean;
   selected?: boolean;
@@ -22,7 +24,7 @@ type ItemCardProps = {
   className?: string;
 };
 
-export function ItemCard({ name, meta, src, status, draft, selectable, selected, href, onClick, className }: ItemCardProps) {
+export function ItemCard({ name, meta, src, status, draft, tagged, selectable, selected, href, onClick, className }: ItemCardProps) {
   // Clean is the default state, so only Laundry/Stored get a badge on cards.
   const showStatus = status && status !== "clean";
 
@@ -36,10 +38,17 @@ export function ItemCard({ name, meta, src, status, draft, selectable, selected,
             <Icon name="hanger" size={32} />
           </span>
         )}
-        {showStatus || draft ? (
+        {showStatus || draft || tagged ? (
           <span className="fc-item__badges">
             {showStatus ? <StatusBadge status={status} /> : null}
-            {draft ? <Badge tone="draft">Needs tags</Badge> : null}
+            {tagged ? (
+              <Badge tone="clean">
+                <Icon name="check" size={12} />
+                Tagged
+              </Badge>
+            ) : draft ? (
+              <Badge tone="draft">Needs tags</Badge>
+            ) : null}
           </span>
         ) : null}
         {selectable ? (

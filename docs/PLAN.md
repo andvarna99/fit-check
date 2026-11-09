@@ -110,7 +110,7 @@ fit-check/
 ## Roadmap
 
 1. **Foundation:** scaffold, DB schema, auth, deploy an empty shell. *Done locally; deployment pending (needs a Vercel project and a Neon database).*
-2. **Closet:** add-item flow with photo upload and background removal; grid and filters
+2. **Closet:** add-item flow with photo upload and background removal; grid and filters. *Done (grid, filters, item detail, add/edit/delete, background removal, drafts with quick-tag, bulk upload).*
 3. **Outfits:** manual builder and wear log
 4. **Picker:** weather integration and rule-based recommender
 5. **AI:** auto-tagging, then stylist chat
@@ -128,6 +128,12 @@ fit-check/
   - Login is **password only**; the mockup's email field is dropped (a visually hidden username field remains for iOS Keychain autofill).
   - "Needs tags" badge is **pink** (as in the mockups), not the design system's yellow, keeping yellow to one element per screen.
   - App icons use the mark full-bleed (square); iOS and Android apply their own rounded mask.
+
+- **Photos are private.** Stored in private Vercel Blob in production (a local `.data/uploads` folder in development) and served only through the logged-in `/api/images/[...key]` route. Each item stores three versions, all prepared on the device before upload: original, main (≤1600px), and thumbnail (≤480px).
+- **Deleting an item is a soft delete.** It leaves the closet and every saved outfit, but the row and photos stay so wear history can still show it.
+- **Database driver:** Neon's WebSocket `Pool` driver (not neon-http), because saving an item with its tags uses a transaction.
+- **Background removal: IMG.LY `@imgly/background-removal`**, running on the device (small `isnet_quint8` model, ~40 MB, downloaded once from IMG.LY's CDN and cached). The photo never leaves the phone before saving. Cutouts are cropped to the garment and saved as transparent PNGs; the original is kept and can be used instead. **License: AGPL-3.0**, acceptable for this single-user personal app; revisit (commercial license or another model) if Fit Check is ever distributed to other users.
+- **Photo storage:** private Vercel Blob store `fit-check-photos` (iad1), connected to Production and Preview.
 
 ## Open questions
 
