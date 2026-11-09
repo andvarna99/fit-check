@@ -11,7 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "node -e \"require('fs').mkdirSync('.data/pglite',{recursive:true})\" && drizzle-kit migrate",
+    "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
