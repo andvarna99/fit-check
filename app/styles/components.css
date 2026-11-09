@@ -244,6 +244,63 @@
 .fc-search input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink); font: 16px/24px var(--font-sans); outline: none; }
 .fc-search:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
 
+.fc-select { appearance: none; -webkit-appearance: none; padding-right: 40px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235e5478' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+.fc-select:invalid, .fc-select.is-placeholder { color: var(--ink-muted); }
+.fc-input-prefix { position: relative; display: flex; align-items: center; }
+.fc-input-prefix > span { position: absolute; left: 14px; color: var(--ink-muted); pointer-events: none; }
+.fc-input-prefix > .fc-input { padding-left: 28px; }
+.fc-fieldset { display: flex; flex-direction: column; gap: var(--space-2); margin: 0; padding: 0; border: 0; min-width: 0; }
+.fc-fieldset > legend { padding: 0; margin-bottom: var(--space-2); }
+.fc-chip-wrap { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* Segmented control (single or multi select) */
+.fc-seg { display: flex; gap: 2px; padding: 3px; border-radius: var(--radius-pill); background: var(--surface-100); }
+.fc-seg__btn { flex: 1; min-width: 0; height: var(--tap-min); border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--ink-muted); font: 600 15px/20px var(--font-sans); cursor: pointer; transition: background-color var(--dur-press) var(--ease-out); }
+.fc-seg__btn[aria-pressed="true"], .fc-seg__btn[aria-checked="true"] { background: var(--surface-000); color: var(--lavender-900); box-shadow: var(--shadow-card); }
+.fc-seg__btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.fc-seg-ends { display: flex; justify-content: space-between; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+
+/* Color swatches */
+.fc-swatches { display: flex; flex-wrap: wrap; gap: 4px; }
+.fc-swatch { display: inline-grid; place-items: center; width: var(--tap-min); height: var(--tap-min); padding: 0; border: 0; border-radius: var(--radius-pill); background: transparent; cursor: pointer; }
+.fc-swatch > span { display: block; width: 32px; height: 32px; border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1px rgba(36,26,61,.18); }
+.fc-swatch[aria-pressed="true"] > span { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--lavender-900); }
+.fc-swatch:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.fc-swatch-dot { display: inline-block; width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(36,26,61,.18); }
+
+/* Switch */
+.fc-switch { position: relative; flex: none; width: 52px; height: 32px; padding: 0; border: 0; border-radius: var(--radius-pill); background: var(--surface-200); cursor: pointer; transition: background-color var(--dur-press) var(--ease-out); }
+.fc-switch::after { content: ""; position: absolute; left: 3px; top: 3px; width: 26px; height: 26px; border-radius: var(--radius-pill); background: #fff; box-shadow: 0 1px 3px rgba(36,26,61,.3); transition: transform var(--dur-press) var(--ease-out); }
+.fc-switch[aria-checked="true"] { background: var(--lavender-700); }
+.fc-switch[aria-checked="true"]::after { transform: translateX(20px); }
+.fc-switch:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---------- Lists, stats, thumbnails ---------- */
+.fc-group { margin: 0; border-radius: var(--radius-md); background: var(--surface-000); box-shadow: var(--shadow-card); overflow: hidden; }
+.fc-li { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 52px; margin: 0; padding: 10px var(--space-4); border-top: 1px solid var(--line); color: inherit; text-decoration: none; }
+.fc-li:first-child { border-top: 0; }
+.fc-li > dt { color: var(--ink-muted); }
+.fc-li > dd { margin: 0; text-align: right; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; align-items: center; }
+a.fc-li:active, button.fc-li:active { background: var(--surface-100); }
+button.fc-li { width: 100%; border-left: 0; border-right: 0; border-bottom: 0; background: none; font: inherit; text-align: left; cursor: pointer; }
+.fc-stat { display: flex; flex-direction: column; gap: 4px; padding: var(--space-3); border-radius: var(--radius-md); background: var(--surface-000); box-shadow: var(--shadow-card); }
+.fc-stat__value { font-family: var(--font-pixel); font-size: 16px; line-height: 16px; letter-spacing: .04em; text-transform: uppercase; }
+.fc-dots { display: inline-flex; gap: 3px; }
+.fc-dots > span { width: 8px; height: 8px; border-radius: 50%; background: var(--surface-200); }
+.fc-dots > span.is-on { background: var(--lavender-700); }
+.fc-thumb { flex: none; width: 56px; height: 56px; padding: 6px; border-radius: var(--radius-sm); background: var(--surface-000); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; }
+.fc-thumb > img { width: 100%; height: 100%; object-fit: contain; }
+.fc-collage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; aspect-ratio: 1; background: var(--line); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); }
+.fc-collage > span { display: grid; place-items: center; padding: 8px; background: var(--surface-000); min-height: 0; }
+.fc-collage > span > img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Floating add button above the tab bar */
+.fc-fab { position: fixed; right: max(var(--space-4), calc((100vw - 448px) / 2 + var(--space-4))); bottom: calc(var(--tabbar-h) + var(--safe-bottom) + var(--space-4)); z-index: 15; min-height: 56px; padding: 0 22px 0 18px; }
+
+/* Pinned bottom action bar for pushed screens */
+.fc-actionbar { position: sticky; bottom: 0; z-index: 10; display: flex; gap: var(--space-3); padding: var(--space-3) var(--space-4) calc(var(--space-3) + var(--safe-bottom)); background: linear-gradient(to top, var(--surface-050) 70%, transparent); }
+.fc-actionbar > * { flex: 1; }
+
 /* ---------- Banners + toast ---------- */
 .fc-banner { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: var(--radius-md); font: 500 15px/20px var(--font-sans); text-decoration: none; }
 .fc-banner--warning { background: var(--yellow-100); color: var(--yellow-800); }

@@ -15,28 +15,18 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
+import {
+  CATEGORIES,
+  ITEM_STATUSES,
+  OCCASIONS,
+  OUTFIT_SOURCES,
+  SEASONS,
+  SLOTS,
+} from "../closet/constants";
+
 // Single-user app: tables intentionally have no userId column (see docs/PLAN.md, Decisions).
 
-export const CATEGORIES = [
-  "top",
-  "bottom",
-  "dress",
-  "outerwear",
-  "shoes",
-  "accessory",
-] as const;
-export const SEASONS = ["spring", "summer", "fall", "winter"] as const;
-export const ITEM_STATUSES = ["clean", "laundry", "stored"] as const;
-export const OCCASIONS = ["casual", "smart_casual", "formal"] as const;
-export const OUTFIT_SOURCES = ["user", "rules", "ai"] as const;
-export const SLOTS = [
-  "outerwear",
-  "top",
-  "dress",
-  "bottom",
-  "shoes",
-  "accessory",
-] as const;
+export { CATEGORIES, ITEM_STATUSES, OCCASIONS, OUTFIT_SOURCES, SEASONS, SLOTS };
 
 export const categoryEnum = pgEnum("category", CATEGORIES);
 export const seasonEnum = pgEnum("season", SEASONS);
@@ -72,11 +62,16 @@ export const items = pgTable(
     brand: text("brand"),
     priceCents: integer("price_cents"),
     purchasedOn: date("purchased_on"),
+    // Storage keys (not public URLs); photos are served by /api/images/[...key].
     imageUrl: text("image_url"),
     // Unprocessed photo, kept so background removal can be undone.
     originalImageUrl: text("original_image_url"),
+    // Small version for grids and pickers.
+    thumbUrl: text("thumb_url"),
     status: itemStatusEnum("status").notNull().default("clean"),
     isDraft: boolean("is_draft").notNull().default(true),
+    // Soft delete: deleted items leave the closet and saved outfits but stay in wear history.
+    deletedAt: timestamp("deleted_at", { withTimezone: true }),
     ...timestamps,
   },
   (t) => [

@@ -2,9 +2,9 @@ import "server-only";
 
 import { mkdirSync } from "node:fs";
 
-import { neon } from "@neondatabase/serverless";
+import { Pool } from "@neondatabase/serverless";
 import type { PgDatabase, PgQueryResultHKT } from "drizzle-orm/pg-core";
-import { drizzle as drizzleNeon } from "drizzle-orm/neon-http";
+import { drizzle as drizzleNeon } from "drizzle-orm/neon-serverless";
 import { drizzle as drizzlePglite } from "drizzle-orm/pglite";
 
 import * as schema from "./schema";
@@ -17,7 +17,9 @@ export const LOCAL_DB_DIR = "./.data/pglite";
 function createDb(): Database {
   const url = process.env.DATABASE_URL;
   if (url) {
-    return drizzleNeon({ client: neon(url), schema }) as unknown as Database;
+    // WebSocket Pool driver (not neon-http) because item saves need transactions.
+    // Node 22+ provides the global WebSocket it uses.
+    return drizzleNeon({ client: new Pool({ connectionString: url }), schema }) as unknown as Database;
   }
   if (process.env.NODE_ENV === "production" && process.env.VERCEL) {
     throw new Error("DATABASE_URL must be set in production.");
@@ -30,8 +32,19 @@ function createDb(): Database {
 // one open handle per data directory.
 const globalForDb = globalThis as unknown as { fitCheckDb?: Database };
 
-export const db: Database = globalForDb.fitCheckDb ?? createDb();
-
-if (process.env.NODE_ENV !== "production") {
-  globalForDb.fitCheckDb = db;
+function getDb(): Database {
+  if (!globalForDb.fitCheckDb) globalForDb.fitCheckDb = createDb();
+  return globalForDb.fitCheckDb;
 }
+
+/**
+ * Connects lazily on first use, so importing this module (e.g. while
+ * `next build` collects pages) never opens a database.
+ */
+export const db: Database = new Proxy({} as Database, {
+  get(_target, prop) {
+    const real = getDb();
+    const value = Reflect.get(real, prop, real);
+    return typeof value === "function" ? value.bind(real) : value;
+  },
+});
