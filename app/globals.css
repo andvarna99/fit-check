@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+/*
+ * Placeholder theme. The Y2K visual design (docs/DESIGN_BRIEF.md) will
+ * replace these tokens once the UI design is ready. Light mode only for now.
+ */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --tab-bar-height: 4rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The installed PWA runs full-bleed (viewport-fit=cover); keep content clear of the notch and home indicator. */
+@utility safe-area {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@utility safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+@utility safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
