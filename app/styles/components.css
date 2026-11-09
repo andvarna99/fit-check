@@ -91,7 +91,8 @@
 /* ---------- ItemCard ---------- */
 .fc-item { display: flex; flex-direction: column; gap: 2px; width: 100%; min-width: 0; padding: 0; border: 0; background: none; text-align: left; text-decoration: none; color: inherit; cursor: pointer; }
 .fc-item__photo { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 1; border-radius: var(--radius-md); background: var(--surface-000); box-shadow: var(--shadow-card); overflow: hidden; }
-.fc-item__photo img { width: 82%; height: 82%; object-fit: contain; }
+/* Absolutely positioned so tall or wide cutouts always fit inside the square card. */
+.fc-item__photo img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 9%; object-fit: contain; }
 .fc-item__ph { color: var(--lavender-300); }
 .fc-item__badges { position: absolute; left: 8px; top: 8px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
 .fc-item.is-selected .fc-item__photo { box-shadow: inset 0 0 0 3px var(--lavender-700), var(--shadow-card); }
@@ -290,9 +291,9 @@ button.fc-li { width: 100%; border-left: 0; border-right: 0; border-bottom: 0; b
 .fc-dots > span.is-on { background: var(--lavender-700); }
 .fc-thumb { flex: none; width: 56px; height: 56px; padding: 6px; border-radius: var(--radius-sm); background: var(--surface-000); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; }
 .fc-thumb > img { width: 100%; height: 100%; object-fit: contain; }
-.fc-collage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; aspect-ratio: 1; background: var(--line); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); }
-.fc-collage > span { display: grid; place-items: center; padding: 8px; background: var(--surface-000); min-height: 0; }
-.fc-collage > span > img { width: 100%; height: 100%; object-fit: contain; }
+.fc-collage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 2px; aspect-ratio: 1; background: var(--line); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-card); }
+.fc-collage > span { position: relative; background: var(--surface-000); min-height: 0; }
+.fc-collage > span > img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 8px; object-fit: contain; }
 
 /* Photo frame: the image always fits inside (contain), whatever its aspect ratio. */
 .fc-photo { position: relative; overflow: hidden; }

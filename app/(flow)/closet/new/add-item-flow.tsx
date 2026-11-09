@@ -132,7 +132,7 @@ export function AddItemFlow() {
       if (run.current !== thisRun) return;
       setPhotos({ original, cutout: { photo: cutout, thumb: cutoutThumb, url: track(cutout.blob) }, cutoutFailed: false });
     } catch (error) {
-      console.error("Background removal failed", error);
+      console.warn("Background removal failed", error);
       if (run.current !== thisRun) return;
       setPhotos({ original, cutout: null, cutoutFailed: true });
     }

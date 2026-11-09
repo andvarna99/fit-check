@@ -2,14 +2,23 @@
 
 import { randomUUID } from "node:crypto";
 
-import { and, count, eq, isNull } from "drizzle-orm";
+import { and, count, eq, inArray, isNotNull, isNull } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { requireSession } from "@/lib/auth/server";
 import { fieldErrorsFrom, itemInputFromFormData, type ItemFieldErrors } from "@/lib/closet/item-input";
-import { itemValues, setItemTags } from "@/lib/closet/mutations";
+import { addItemTags, itemValues, setItemTags } from "@/lib/closet/mutations";
 import { ITEM_STATUSES, type ItemStatus } from "@/lib/closet/options";
+import {
+  applyQuickTag,
+  isPatchEmpty,
+  itemIdsSchema,
+  quickTagPatchSchema,
+  tagValuesSchema,
+  type QuickTagPatch,
+  type TagValues,
+} from "@/lib/closet/quick-tag";
 import { db } from "@/lib/db";
 import { items, outfitItems } from "@/lib/db/schema";
 import { IMAGE_EXTENSION, sniffImageType } from "@/lib/images/sniff";
@@ -138,4 +147,106 @@ export async function deleteItem(id: string): Promise<void> {
   revalidateCloset(id);
   revalidatePath("/outfits");
   redirect("/closet");
+}
+
+export type BulkResult = { ok: true } | { ok: false; error: string };
+
+/**
+ * Applies the same quick-tag changes to several items. With `finalize`, items
+ * that end up with a category leave Drafts (used by the Drafts screen); the
+ * bulk upload review finalizes separately with finalizeItems.
+ */
+export async function quickTagItems(ids: string[], patch: QuickTagPatch, finalize: boolean): Promise<BulkResult> {
+  await requireSession();
+  const parsedIds = itemIdsSchema.safeParse(ids);
+  const parsedPatch = quickTagPatchSchema.safeParse(patch);
+  if (!parsedIds.success || !parsedPatch.success) return { ok: false, error: "Those changes didn't look right. Try again." };
+  if (isPatchEmpty(parsedPatch.data)) return { ok: true };
+
+  try {
+    await db.transaction(async (tx) => {
+      const rows = await tx
+        .select({
+          id: items.id,
+          category: items.category,
+          colors: items.colors,
+          seasons: items.seasons,
+          formality: items.formality,
+          warmth: items.warmth,
+          isDraft: items.isDraft,
+        })
+        .from(items)
+        .where(and(inArray(items.id, parsedIds.data), isNull(items.deletedAt)));
+      for (const row of rows) {
+        const next = applyQuickTag(row, parsedPatch.data);
+        await tx
+          .update(items)
+          .set({ ...next, isDraft: finalize && next.category ? false : row.isDraft })
+          .where(eq(items.id, row.id));
+      }
+      await addItemTags(tx, rows.map((r) => r.id), parsedPatch.data.addTags ?? []);
+    });
+  } catch (error) {
+    console.error("quickTagItems failed", error);
+    return { ok: false, error: "Couldn't tag those items. Try again." };
+  }
+  revalidateCloset();
+  return { ok: true };
+}
+
+/** Sets one item's quick fields (One-by-one review). Other fields are untouched. */
+export async function tagItem(id: string, values: TagValues): Promise<BulkResult> {
+  await requireSession();
+  const parsed = tagValuesSchema.safeParse(values);
+  if (!isUuid(id) || !parsed.success) return { ok: false, error: "Those details didn't look right. Try again." };
+  try {
+    await db
+      .update(items)
+      .set({ ...parsed.data, colors: [...new Set(parsed.data.colors)], seasons: [...new Set(parsed.data.seasons)] })
+      .where(and(eq(items.id, id), isNull(items.deletedAt)));
+  } catch (error) {
+    console.error("tagItem failed", error);
+    return { ok: false, error: "Couldn't save that item. Try again." };
+  }
+  revalidateCloset(id);
+  return { ok: true };
+}
+
+/** Moves the given drafts that have a category into the closet. Returns how many moved and how many stay drafts. */
+export async function finalizeItems(ids: string[]): Promise<{ ok: true; added: number; drafts: number } | { ok: false; error: string }> {
+  await requireSession();
+  const parsed = itemIdsSchema.safeParse(ids);
+  if (!parsed.success) return { ok: false, error: "Nothing to save." };
+  try {
+    const moved = await db
+      .update(items)
+      .set({ isDraft: false })
+      .where(and(inArray(items.id, parsed.data), isNotNull(items.category), isNull(items.deletedAt)))
+      .returning({ id: items.id });
+    revalidateCloset();
+    return { ok: true, added: moved.length, drafts: parsed.data.length - moved.length };
+  } catch (error) {
+    console.error("finalizeItems failed", error);
+    return { ok: false, error: "Couldn't save the batch. Try again." };
+  }
+}
+
+/** Current tag values for a batch (refreshes Review after editing an item in the full form). */
+export async function getTagValues(ids: string[]): Promise<Record<string, TagValues & { name: string | null }>> {
+  await requireSession();
+  const parsed = itemIdsSchema.safeParse(ids);
+  if (!parsed.success) return {};
+  const rows = await db
+    .select({
+      id: items.id,
+      name: items.name,
+      category: items.category,
+      colors: items.colors,
+      seasons: items.seasons,
+      formality: items.formality,
+      warmth: items.warmth,
+    })
+    .from(items)
+    .where(and(inArray(items.id, parsed.data), isNull(items.deletedAt)));
+  return Object.fromEntries(rows.map(({ id, ...values }) => [id, values]));
 }

@@ -18,6 +18,17 @@ export async function setItemTags(tx: Tx, itemId: string, names: string[]): Prom
   await tx.insert(itemTags).values(rows.map((r) => ({ itemId, tagId: r.id })));
 }
 
+/** Adds tags to several items, keeping their existing tags. */
+export async function addItemTags(tx: Tx, itemIds: string[], names: string[]): Promise<void> {
+  if (names.length === 0 || itemIds.length === 0) return;
+  await tx.insert(tags).values(names.map((name) => ({ name }))).onConflictDoNothing({ target: tags.name });
+  const rows = await tx.select({ id: tags.id }).from(tags).where(inArray(tags.name, names));
+  await tx
+    .insert(itemTags)
+    .values(itemIds.flatMap((itemId) => rows.map((r) => ({ itemId, tagId: r.id }))))
+    .onConflictDoNothing();
+}
+
 /** Column values for an item from validated form input. */
 export function itemValues(input: ItemInput) {
   return {

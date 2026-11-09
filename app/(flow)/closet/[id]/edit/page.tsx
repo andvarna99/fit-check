@@ -9,14 +9,20 @@ import { EditItemForm } from "./edit-item-form";
 
 export const metadata = { title: "Edit item" };
 
-async function EditData({ params }: PageProps<"/closet/[id]/edit">) {
-  const { id } = await params;
+/** Only the bulk upload review may be a return target (prevents open redirects). */
+function safeReturnTo(value: string | string[] | undefined): string | undefined {
+  return value === "/closet/bulk" ? value : undefined;
+}
+
+async function EditData({ params, searchParams }: PageProps<"/closet/[id]/edit">) {
+  const [{ id }, query] = await Promise.all([params, searchParams]);
   const item = await getItemDetail(id);
   if (!item) notFound();
   return (
     <EditItemForm
       id={item.id}
       isDraft={item.isDraft}
+      returnTo={safeReturnTo(query.returnTo)}
       photoSrc={imageSrc(item.thumbUrl ?? item.imageUrl)}
       initial={{
         name: item.name ?? "",

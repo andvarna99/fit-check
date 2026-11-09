@@ -110,7 +110,7 @@ fit-check/
 ## Roadmap
 
 1. **Foundation:** scaffold, DB schema, auth, deploy an empty shell. *Done locally; deployment pending (needs a Vercel project and a Neon database).*
-2. **Closet:** add-item flow with photo upload and background removal; grid and filters. *Grid, filters, search, item detail, add/edit/delete and drafts done; background removal and bulk upload in progress.*
+2. **Closet:** add-item flow with photo upload and background removal; grid and filters. *Done (grid, filters, item detail, add/edit/delete, background removal, drafts with quick-tag, bulk upload).*
 3. **Outfits:** manual builder and wear log
 4. **Picker:** weather integration and rule-based recommender
 5. **AI:** auto-tagging, then stylist chat

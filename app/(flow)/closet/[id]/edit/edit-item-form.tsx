@@ -12,11 +12,13 @@ import { updateItem } from "../../actions";
 type EditItemFormProps = {
   id: string;
   isDraft: boolean;
+  /** Where to go after saving or cancelling, e.g. back to the bulk review. */
+  returnTo?: string;
   photoSrc: string | null;
   initial: ItemFormValues;
 };
 
-export function EditItemForm({ id, isDraft, photoSrc, initial }: EditItemFormProps) {
+export function EditItemForm({ id, isDraft, returnTo, photoSrc, initial }: EditItemFormProps) {
   const router = useRouter();
   return (
     <ItemForm
@@ -26,7 +28,7 @@ export function EditItemForm({ id, isDraft, photoSrc, initial }: EditItemFormPro
         <BarHeader
           title={isDraft ? "Finish tagging" : "Edit item"}
           start={
-            <Link href={`/closet/${id}`} className="fc-iconbtn" aria-label="Cancel editing">
+            <Link href={returnTo ?? `/closet/${id}`} className="fc-iconbtn" aria-label="Cancel editing">
               <Icon name="close" />
             </Link>
           }
@@ -36,7 +38,7 @@ export function EditItemForm({ id, isDraft, photoSrc, initial }: EditItemFormPro
       draftLabel={isDraft ? "Keep as draft" : null}
       submit={(formData) => updateItem(id, formData)}
       onSaved={(result) => {
-        router.replace(result.isDraft ? "/closet/drafts" : `/closet/${id}`);
+        router.replace(returnTo ?? (result.isDraft ? "/closet/drafts" : `/closet/${id}`));
         router.refresh();
       }}
     />
