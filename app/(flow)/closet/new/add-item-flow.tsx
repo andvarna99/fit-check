@@ -11,14 +11,20 @@ import { Badge } from "@/components/ui/badge";
 import { Banner } from "@/components/ui/banner";
 import { Button, IconButton } from "@/components/ui/button";
 import { Icon, Sparkle } from "@/components/ui/icon";
+import { Progress } from "@/components/ui/progress";
 import { BarHeader } from "@/components/ui/screen-header";
-import { preparePhoto, type PreparedPhoto } from "@/lib/images/prepare";
+import { Segmented } from "@/components/ui/segmented";
+import { Switch } from "@/components/ui/switch";
+import { WindowPanel } from "@/components/ui/window-panel";
+import { preparePhoto, resizeImage, THUMB_MAX_PX, type PreparedPhoto } from "@/lib/images/prepare";
+import { removeBackgroundOnDevice, trimCutout, type RemovalProgress } from "@/lib/images/remove-background";
 
 import { createItem, type SaveItemResult } from "../actions";
 
-type Photo = { original: PreparedPhoto; main: PreparedPhoto; thumb: PreparedPhoto; previewUrl: string };
+type Version = { photo: PreparedPhoto; thumb: PreparedPhoto; url: string };
+type Photos = { original: Version; cutout: Version | null; cutoutFailed: boolean };
 type Saved = Extract<SaveItemResult, { ok: true }>;
-type Step = "capture" | "details" | "saved";
+type Step = "capture" | "removing" | "result" | "details" | "saved";
 
 const TOTAL_STEPS = 3;
 
@@ -30,85 +36,137 @@ function StepCount({ n }: { n: number }) {
   );
 }
 
+function progressLabel(p: RemovalProgress | null): { text: string; percent?: number } {
+  if (!p) return { text: "Snipping..." };
+  if (p.phase === "download") return { text: "Fetching scissors...", percent: Math.round(p.fraction * 100) };
+  return { text: "Snipping...", percent: Math.round(p.fraction * 100) };
+}
+
 export function AddItemFlow() {
   const router = useRouter();
   const [step, setStep] = useState<Step>("capture");
-  const [photo, setPhoto] = useState<Photo | null>(null);
+  const [photos, setPhotos] = useState<Photos | null>(null);
+  const [keepOriginal, setKeepOriginal] = useState(false);
+  const [compare, setCompare] = useState<"before" | "after">("after");
+  const [progress, setProgress] = useState<RemovalProgress | null>(null);
   const [saved, setSaved] = useState<Saved | null>(null);
   const [preparing, setPreparing] = useState(false);
   const [pickError, setPickError] = useState<string | null>(null);
 
-  // Next.js keeps visited pages alive (hidden) to preserve state. After a save,
-  // start fresh the next time this flow is shown instead of re-showing "Saved".
-  // An unfinished item is still preserved if the user leaves mid-way.
+  // Object URLs for previews, released when replaced or cleared (not in an effect
+  // cleanup: Next.js runs cleanups when it hides the page, while previews are still needed).
+  const urls = useRef<string[]>([]);
+  // Ignores a background-removal result that finishes after the user cancelled.
+  const run = useRef(0);
+  // After a save, start fresh the next time this (kept-alive) page is shown.
   const resetWhenHidden = useRef(false);
-  // The preview's object URL is released only when the photo is replaced or cleared,
-  // not in an effect cleanup: hiding the page runs cleanups while the photo is still needed.
-  const previewUrl = useRef<string | null>(null);
 
-  function replacePhoto(next: Photo | null) {
-    if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
-    previewUrl.current = next?.previewUrl ?? null;
-    setPhoto(next);
+  function track(blob: Blob): string {
+    const url = URL.createObjectURL(blob);
+    urls.current.push(url);
+    return url;
+  }
+
+  function releaseUrls() {
+    urls.current.forEach((u) => URL.revokeObjectURL(u));
+    urls.current = [];
+  }
+
+  function reset() {
+    run.current++;
+    resetWhenHidden.current = false;
+    releaseUrls();
+    setPhotos(null);
+    setSaved(null);
+    setProgress(null);
+    setKeepOriginal(false);
+    setCompare("after");
+    setPickError(null);
+    setStep("capture");
   }
 
   useLayoutEffect(() => {
     return () => {
-      if (resetWhenHidden.current) {
-        resetWhenHidden.current = false;
-        if (previewUrl.current) URL.revokeObjectURL(previewUrl.current);
-        previewUrl.current = null;
-        setPhoto(null);
-        setSaved(null);
-        setPickError(null);
-        setStep("capture");
-      }
+      if (!resetWhenHidden.current) return;
+      // Same as reset(), using only refs and stable state setters.
+      // `run` is a counter (not a DOM ref); reading its latest value here is intended.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      run.current++;
+      resetWhenHidden.current = false;
+      urls.current.forEach((u) => URL.revokeObjectURL(u));
+      urls.current = [];
+      setPhotos(null);
+      setSaved(null);
+      setProgress(null);
+      setKeepOriginal(false);
+      setCompare("after");
+      setPickError(null);
+      setStep("capture");
     };
   }, []);
 
   async function onPick([file]: File[]) {
-    setPickError(null);
+    reset();
+    const thisRun = run.current;
     setPreparing(true);
+    let original: Version;
     try {
       const { main, thumb } = await preparePhoto(file);
-      replacePhoto({ original: main, main, thumb, previewUrl: URL.createObjectURL(main.blob) });
-      setStep("details");
+      original = { photo: main, thumb, url: track(main.blob) };
     } catch {
       setPickError("Couldn't open that photo. Try a JPEG or PNG, or take a new one.");
+      return;
     } finally {
       setPreparing(false);
     }
+
+    setPhotos({ original, cutout: null, cutoutFailed: false });
+    setStep("removing");
+
+    try {
+      const raw = await removeBackgroundOnDevice(original.photo.blob, (p) => {
+        if (run.current === thisRun) setProgress(p);
+      });
+      const cutout = await trimCutout(raw);
+      const cutoutThumb = await resizeImage(cutout.blob, THUMB_MAX_PX, true);
+      if (run.current !== thisRun) return;
+      setPhotos({ original, cutout: { photo: cutout, thumb: cutoutThumb, url: track(cutout.blob) }, cutoutFailed: false });
+    } catch (error) {
+      console.error("Background removal failed", error);
+      if (run.current !== thisRun) return;
+      setPhotos({ original, cutout: null, cutoutFailed: true });
+    }
+    setStep("result");
   }
 
+  function cancelRemoval() {
+    reset();
+  }
+
+  /** The version that gets saved: the cutout unless the user keeps the original (or removal failed). */
+  const chosen = photos ? (photos.cutout && !keepOriginal ? photos.cutout : photos.original) : null;
+
   function submit(formData: FormData) {
-    if (!photo) return Promise.resolve<SaveItemResult>({ ok: false, errors: { form: "Add a photo first." } });
-    formData.set("photo", photo.main.blob, "photo");
-    formData.set("original", photo.original.blob, "original");
-    formData.set("thumb", photo.thumb.blob, "thumb");
+    if (!photos || !chosen) return Promise.resolve<SaveItemResult>({ ok: false, errors: { form: "Add a photo first." } });
+    formData.set("photo", chosen.photo.blob, "photo");
+    formData.set("thumb", chosen.thumb.blob, "thumb");
+    formData.set("original", photos.original.photo.blob, "original");
     return createItem(formData);
   }
 
-  function reset() {
-    resetWhenHidden.current = false;
-    replacePhoto(null);
-    setSaved(null);
-    setStep("capture");
-  }
-
+  // ---------- D4: saved ----------
   if (step === "saved" && saved) {
     return (
       <div className="flex min-h-dvh flex-col">
         <div className="gutter flex flex-1 flex-col items-center justify-center gap-5 text-center">
           <div className="relative">
-            <div className="fc-card grid h-40 w-40 place-items-center p-4">
-              {photo ? <img src={photo.previewUrl} alt="" className="h-full w-full object-contain" /> : null}
+            <div className="fc-card fc-photo h-40 w-40">
+              {chosen ? <img src={chosen.url} alt="" /> : null}
             </div>
             <Sparkle size={26} className="absolute -top-3 -right-4 text-pink-400" />
             <Sparkle size={14} className="absolute bottom-3 -left-5 text-lavender-300" />
           </div>
-          <Badge tone={saved.isDraft ? "draft" : "clean"}>
-            {saved.isDraft ? "Draft" : `Item ${saved.itemNumber}`}
-          </Badge>
+          <Badge tone={saved.isDraft ? "draft" : "clean"}>{saved.isDraft ? "Draft" : `Item ${saved.itemNumber}`}</Badge>
           <div className="flex flex-col gap-2">
             <h1 className="type-title-lg">{saved.isDraft ? "Saved as a draft" : "Saved to your closet"}</h1>
             <p className="type-body text-ink-muted">
@@ -130,15 +188,16 @@ export function AddItemFlow() {
     );
   }
 
-  if (step === "details" && photo) {
+  // ---------- D3: details ----------
+  if (step === "details" && photos && chosen) {
     return (
       <ItemForm
         initial={EMPTY_ITEM_VALUES}
-        photoSrc={photo.previewUrl}
+        photoSrc={chosen.url}
         header={
           <BarHeader
             title="Item details"
-            start={<IconButton icon="left" label="Back" onClick={() => setStep("capture")} />}
+            start={<IconButton icon="left" label="Back" onClick={() => setStep("result")} />}
             end={<StepCount n={3} />}
           />
         }
@@ -157,6 +216,109 @@ export function AddItemFlow() {
     );
   }
 
+  // ---------- D2: removing ----------
+  if (step === "removing" && photos) {
+    const label = progressLabel(progress);
+    return (
+      <div className="flex min-h-dvh flex-col">
+        <BarHeader title="Add an item" start={<IconButton icon="left" label="Back" onClick={cancelRemoval} />} end={<StepCount n={2} />} />
+        <div className="gutter flex flex-1 flex-col gap-4 pt-2">
+          <section aria-label="Removing background" aria-busy="true">
+            <WindowPanel title="Bg-remove.exe" bodyClassName="flex flex-col gap-4">
+              <div className="fc-scan fc-photo aspect-square rounded-[var(--radius-sm)] bg-surface-000 [--photo-pad:0px]">
+                <img src={photos.original.url} alt="" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <span className="type-pixel-lg">{label.text}</span>
+                  {label.percent !== undefined ? <span className="type-pixel-sm text-ink-muted">{label.percent}%</span> : null}
+                </div>
+                <Progress label="Removing background" value={label.percent} />
+              </div>
+            </WindowPanel>
+          </section>
+          <p className="type-body text-ink-muted">
+            {progress?.phase === "download"
+              ? "First time only: downloading the background remover. After this it works offline and faster."
+              : "Erasing the background on your phone. Nothing leaves it until you save."}
+          </p>
+        </div>
+        <div className="gutter safe-bottom pt-6 pb-6">
+          <Button block variant="secondary" onClick={cancelRemoval}>
+            Cancel
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // ---------- D2: result ----------
+  if (step === "result" && photos) {
+    const showing = photos.cutout && compare === "after" ? photos.cutout : photos.original;
+    return (
+      <div className="flex min-h-dvh flex-col">
+        <BarHeader title="Add an item" start={<IconButton icon="left" label="Retake photo" onClick={reset} />} end={<StepCount n={2} />} />
+        <div className="gutter flex flex-1 flex-col gap-4 pt-2">
+          {photos.cutout ? (
+            <>
+              <div className="flex flex-col gap-1">
+                <h2 className="type-title-md">Clean cut</h2>
+                <p className="type-body text-ink-muted">Check the edges. Toggle to compare with the original.</p>
+              </div>
+              <div className="fc-card fc-photo aspect-square">
+                <img src={showing.url} alt={compare === "after" ? "Photo with background removed" : "Original photo"} />
+                {showing === photos.cutout ? (
+                  <Badge tone="clean" className="absolute top-3 left-3">
+                    <Icon name="scissors" size={14} />
+                    Background gone
+                  </Badge>
+                ) : null}
+              </div>
+              <Segmented
+                label="Compare"
+                options={[
+                  { value: "before", label: "Before" },
+                  { value: "after", label: "After" },
+                ]}
+                value={compare}
+                onChange={(v) => v && setCompare(v)}
+              />
+              <div className="flex items-center justify-between gap-3">
+                <span className="flex flex-col">
+                  <span className="type-body-strong">Keep the original photo</span>
+                  <span className="type-caption">Use it if the cutout clipped something</span>
+                </span>
+                <Switch label="Keep the original photo" checked={keepOriginal} onChange={setKeepOriginal} />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex flex-col gap-1">
+                <h2 className="type-title-md">Couldn&apos;t snip this one</h2>
+                <p className="type-body text-ink-muted">The background stayed put. You can use the photo as is, or retake it on a plain background.</p>
+              </div>
+              <div className="fc-card fc-photo aspect-square">
+                <img src={photos.original.url} alt="Original photo" />
+              </div>
+              {photos.cutoutFailed ? <Banner tone="warning" icon="alert">Background removal didn&apos;t work on this device or photo.</Banner> : null}
+            </>
+          )}
+        </div>
+        <div className="gutter safe-bottom flex flex-col gap-3 pt-6 pb-6">
+          <Button block onClick={() => setStep("details")}>
+            {photos.cutout ? "Continue" : "Use original photo"}
+          </Button>
+          {!photos.cutout ? (
+            <Button block variant="secondary" onClick={reset}>
+              Retake photo
+            </Button>
+          ) : null}
+        </div>
+      </div>
+    );
+  }
+
+  // ---------- D1: capture ----------
   return (
     <div className="flex min-h-dvh flex-col">
       <BarHeader

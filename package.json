@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.16",
+    "@imgly/background-removal": "^1.7.0",
     "@neondatabase/serverless": "^1.2.0",
     "@vercel/blob": "^2.9.0",
     "drizzle-orm": "^0.45.4",

@@ -91,9 +91,9 @@ function Detail({ item }: { item: ItemDetail }) {
         }
       />
       <div className="gutter flex flex-col gap-5 pb-10">
-        <div className="fc-card relative grid aspect-square place-items-center overflow-hidden p-6">
+        <div className="fc-card fc-photo grid aspect-square place-items-center [--photo-pad:24px]">
           {item.imageUrl ? (
-            <img src={imageSrc(item.imageUrl) ?? undefined} alt={title} className="h-full w-full object-contain" />
+            <img src={imageSrc(item.imageUrl) ?? undefined} alt={title} />
           ) : (
             <Icon name="hanger" size={64} className="text-lavender-300" />
           )}
