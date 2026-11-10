@@ -58,6 +58,8 @@ function revalidateCloset(id?: string) {
   revalidatePath("/closet");
   revalidatePath("/closet/drafts");
   if (id) revalidatePath(`/closet/${id}`);
+  // Today suggests outfits from the closet.
+  revalidatePath("/");
 }
 
 export async function createItem(formData: FormData): Promise<SaveItemResult> {

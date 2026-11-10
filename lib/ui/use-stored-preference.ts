@@ -13,12 +13,29 @@ function subscribe(listener: () => void) {
   };
 }
 
-function read(key: string): string | null {
+/** Reads a stored string, or null when missing or storage is blocked (private mode, previews). */
+export function readStored(key: string): string | null {
   try {
     return localStorage.getItem(key);
   } catch {
-    return null; // storage blocked (private mode, previews)
+    return null;
   }
+}
+
+/** Stores a string (null removes it) and notifies every hook reading it. */
+export function writeStored(key: string, value: string | null): void {
+  try {
+    if (value === null) localStorage.removeItem(key);
+    else localStorage.setItem(key, value);
+  } catch {
+    // Not critical.
+  }
+  listeners.forEach((l) => l());
+}
+
+/** The raw stored string; null on the server and until storage is readable. */
+export function useStoredString(key: string): string | null {
+  return useSyncExternalStore(subscribe, () => readStored(key), () => null);
 }
 
 /**
@@ -27,20 +44,8 @@ function read(key: string): string | null {
  * causes a hydration mismatch, and the page works when storage is unavailable.
  */
 export function useStoredPreference<T extends string>(key: string, allowed: readonly T[], fallback: T): [T, (value: T) => void] {
-  const raw = useSyncExternalStore(subscribe, () => read(key), () => null);
+  const raw = useStoredString(key);
   const value = raw !== null && (allowed as readonly string[]).includes(raw) ? (raw as T) : fallback;
-
-  const setValue = useCallback(
-    (next: T) => {
-      try {
-        localStorage.setItem(key, next);
-      } catch {
-        // Not critical.
-      }
-      listeners.forEach((l) => l());
-    },
-    [key],
-  );
-
+  const setValue = useCallback((next: T) => writeStored(key, next), [key]);
   return [value, setValue];
 }

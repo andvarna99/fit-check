@@ -9,7 +9,8 @@ import { categoryLine } from "@/lib/closet/options";
 import { imageSrc } from "@/lib/images/url";
 import { wearDayTitle } from "@/lib/outfits/dates";
 import { getWearLog, type WearEntry } from "@/lib/outfits/queries";
-import { weatherRange, weatherTemp } from "@/lib/outfits/weather";
+import { WeatherText } from "@/components/outfits/weather-text";
+import { weatherRange } from "@/lib/outfits/weather";
 
 import { DeleteWearButton, EntryRating } from "./entry-controls";
 
@@ -35,10 +36,14 @@ function Entry({ entry }: { entry: WearEntry }) {
 
         {entry.weather ? (
           <section className="fc-wx" aria-label="Weather that day">
-            <span className="fc-wx__temp">{weatherTemp(entry.weather)}</span>
+            <span className="fc-wx__temp"><WeatherText weather={entry.weather} format="temp" /></span>
             <div className="flex-1">
               <p className="type-callout">{entry.weather.condition}</p>
-              {range ? <p className="type-caption !text-blue-700">{range}</p> : null}
+              {range ? (
+                <p className="type-caption !text-blue-700">
+                  <WeatherText weather={entry.weather} format="range" />
+                </p>
+              ) : null}
             </div>
           </section>
         ) : null}

@@ -112,7 +112,7 @@ fit-check/
 1. **Foundation:** scaffold, DB schema, auth, deploy an empty shell. *Done locally; deployment pending (needs a Vercel project and a Neon database).*
 2. **Closet:** add-item flow with photo upload and background removal; grid and filters. *Done (grid, filters, item detail, add/edit/delete, background removal, drafts with quick-tag, bulk upload).*
 3. **Outfits:** manual builder and wear log. *Done (outfits list with occasion filter, dress-up builder with shuffle/lock and slot picker, outfit detail, Wear today with rating, history list and entry detail).*
-4. **Picker:** weather integration and rule-based recommender
+4. **Picker:** weather integration and rule-based recommender. *Done (Today tab with weather, occasion, suggested outfit, shuffle with locks, Wear this and Save; match score in the builder; weather location and °F/°C in Settings; weather snapshots on wear logs).*
 5. **AI:** auto-tagging, then stylist chat
 6. **Extras:** calendar, packing lists, stats
 
@@ -136,8 +136,11 @@ fit-check/
 - **Photo storage:** private Vercel Blob store `fit-check-photos` (iad1), connected to Production and Preview.
 
 - **Outfit rules.** One item per slot except accessories (up to 6); a dress replaces the top and bottom. The builder's Top / Dress row is one carousel; a new outfit starts from the newest top, bottom and shoes.
-- **Wear log dates come from the device.** "Today" is the phone's local date (the server only checks it's within a day of UTC). Wearing the same outfit twice on one day returns the existing entry. Weather snapshots are added in step 4; until then entries have none.
-- **The match badge waits for step 4.** The builder shows no Match/Clash score until the recommender exists.
+- **Wear log dates come from the device.** "Today" is the phone's local date (the server only checks it's within a day of UTC). Wearing the same outfit twice on one day returns the existing entry. Entries made from Today (or after Today loaded the weather) carry a weather snapshot.
+- **Weather: Open-Meteo**, free with no API key, called from the browser, so the location goes only to Open-Meteo (rounded to ~1 km). Location is the device's, or a city chosen in Settings; both settings and the °F/°C choice are per device (localStorage). Cached for 30 minutes.
+- **Recommender** (`lib/recommender/`, pure): score 0–100 from color harmony (35%), weather and season (25%), formality vs. occasion (25%) and recency (15%, pieces rest fully after 14 days). Parts that can't be judged are dropped and the rest re-weighted. Suggestions only use clean, finished pieces and leave accessories to the user. Shuffle picks among the top outfits within 15 points of the best, keeping locked rows.
+- **Match badge:** MATCH! at 70+, Clash under 50, score alone in between. Shown on Today and in the builder (the builder ignores weather and recency). When no piece has colors, formality or warmth, the badge is replaced by a prompt to tag them.
+- **Wear this on Today** logs the pieces directly; the entry links to a saved outfit with exactly those pieces, if one exists.
 
 ## Open questions
 

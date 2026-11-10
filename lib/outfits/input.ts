@@ -23,3 +23,14 @@ export const outfitInputSchema = z.object({
 export type OutfitInput = z.input<typeof outfitInputSchema>;
 
 export const ratingSchema = z.number().int().min(1).max(5).nullable();
+
+/** Weather sent by the device with a wear log; checked because it's stored as-is. */
+export const weatherSnapshotSchema = z
+  .object({
+    tempC: z.number().min(-90).max(60),
+    highC: z.number().min(-90).max(60).optional(),
+    lowC: z.number().min(-90).max(60).optional(),
+    condition: z.string().trim().min(1).max(40),
+    wet: z.boolean().optional(),
+  })
+  .strip();
