@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { OutfitCollage } from "@/components/outfits/outfit-collage";
+import { WeatherText } from "@/components/outfits/weather-text";
 import { Sparkle } from "@/components/ui/icon";
 import { ScreenHeader } from "@/components/ui/screen-header";
 import { RatingLabel } from "@/components/ui/star-rating";
@@ -10,7 +11,6 @@ import { WindowPanel } from "@/components/ui/window-panel";
 import { categoryLine } from "@/lib/closet/options";
 import { groupByHistoryLabel, wearDayLabel } from "@/lib/outfits/dates";
 import type { WearEntry } from "@/lib/outfits/queries";
-import { weatherLine } from "@/lib/outfits/weather";
 import { useLocalToday } from "@/lib/ui/use-local-today";
 
 function daysLogged(entries: WearEntry[]): string {
@@ -52,7 +52,7 @@ export function HistoryView({ entries }: { entries: WearEntry[] }) {
                         <RatingLabel value={entry.rating} />
                       </span>
                       <span className="truncate type-caption">{entry.outfit?.name ?? itemsLine(entry)}</span>
-                      {entry.weather ? <span className="type-caption !text-blue-700">{weatherLine(entry.weather)}</span> : null}
+                      {entry.weather ? <span className="type-caption !text-blue-700"><WeatherText weather={entry.weather} format="line" /></span> : null}
                     </span>
                   </Link>
                 </li>

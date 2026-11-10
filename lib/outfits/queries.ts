@@ -1,10 +1,10 @@
 import "server-only";
 
-import { count, desc, eq, inArray, max } from "drizzle-orm";
+import { count, desc, eq, gte, inArray, max } from "drizzle-orm";
 
 import { requireSession } from "@/lib/auth/server";
 import { db } from "@/lib/db";
-import { outfits, wearLogs, type Item, type WeatherSnapshot } from "@/lib/db/schema";
+import { outfits, wearLogItems, wearLogs, type Item, type WeatherSnapshot } from "@/lib/db/schema";
 
 import { SLOT_ORDER, type Occasion, type Slot } from "./slots";
 
@@ -151,4 +151,29 @@ export async function getWearLog(id: string): Promise<WearEntry | null> {
   if (!isUuid(id)) return null;
   const row = await db.query.wearLogs.findFirst({ where: eq(wearLogs.id, id), with: wearWith });
   return row ? toWearEntry(row) : null;
+}
+
+/** Last date each item was worn. */
+export async function lastWornByItem(): Promise<Record<string, string>> {
+  await requireSession();
+  const rows = await db
+    .select({ itemId: wearLogItems.itemId, last: max(wearLogs.wornOn) })
+    .from(wearLogItems)
+    .innerJoin(wearLogs, eq(wearLogs.id, wearLogItems.wearLogId))
+    .groupBy(wearLogItems.itemId);
+  return Object.fromEntries(rows.filter((r) => r.last).map((r) => [r.itemId, r.last as string]));
+}
+
+export type RecentWear = { id: string; wornOn: string; itemIds: string[]; rating: number | null };
+
+/** Wear logs from the last `days` days, with their item ids, so Today can tell what's already logged. */
+export async function listRecentWears(days: number): Promise<RecentWear[]> {
+  await requireSession();
+  const since = new Date(Date.now() - days * 86_400_000).toISOString().slice(0, 10);
+  const rows = await db.query.wearLogs.findMany({
+    where: gte(wearLogs.wornOn, since),
+    columns: { id: true, wornOn: true, rating: true },
+    with: { items: { columns: { itemId: true } } },
+  });
+  return rows.map((r) => ({ id: r.id, wornOn: r.wornOn, rating: r.rating, itemIds: r.items.map((i) => i.itemId) }));
 }

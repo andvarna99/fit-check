@@ -133,6 +133,8 @@ export type WeatherSnapshot = {
   highC?: number;
   lowC?: number;
   condition: string;
+  /** Rain, snow or showers expected that day. */
+  wet?: boolean;
 };
 
 export const wearLogs = pgTable(
